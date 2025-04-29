@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinique Bien-Être | Acupuncture & Massage - Brossard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #2A5C4A;
+            --secondary: #C45C3D;
+            --light: #F9F5F0;
+            --dark: #333333;
+            --gray: #777777;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: white;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--secondary);
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--primary);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+            margin: 20px auto 0;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--dark);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        /* Services Section */
+        .services {
+            background-color: var(--light);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover .service-img img {
+            transform: scale(1.1);
+        }
+        
+        .service-content {
+            padding: 30px;
+        }
+        
+        .service-content h3 {
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        .service-content p {
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+        
+        .service-icon {
+            font-size: 40px;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        
+        /* About Section */
+        .about {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-img {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-content {
+            flex: 1;
+        }
+        
+        .about-content h2 {
+            margin-bottom: 20px;
+        }
+        
+        .about-content p {
+            margin-bottom: 15px;
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            background-color: var(--light);
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+        
+        .author-info p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: white;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 20px;
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .contact-icon {
+            margin-right: 15px;
+            color: var(--secondary);
+            font-size: 20px;
+        }
+        
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .contact-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 20px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about {
+                flex-direction: column;
+            }
+            
+            .about-img, .about-content {
+                flex: none;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 0;
+                transition: all 0.5s ease;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Clinique <span>Bien-Être</span></a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="#home">Accueil</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">À Propos</a></li>
+                    <li><a href="#testimonials">Témoignages</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Votre Santé, Notre Priorité</h1>
+            <p>Acupuncture traditionnelle & Massothérapie professionnelle à Brossard</p>
+            <div class="hero-btns">
+                <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/yunacu'});" 
+                class="btn btn-large">
+            <i class="fas fa-calendar-alt"></i> Réserver
+                </button>
+                <a href="#services" class="btn btn-outline">Nos Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nos Services</h2>
+                <p>Découvrez nos thérapies holistiques pour votre bien-être</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Acupuncture">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Acupuncture Traditionnelle</h3>
+                        <p>Soulagez vos douleurs chroniques avec des aiguilles stériles à usage unique.</p>
+                        <ul>
+                            <li>Douleurs cervicales/lombaires</li>
+                            <li>Insomnie & anxiété</li>
+                            <li>Support gynécologique</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Massothérapie">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-hands"></i>
+                        </div>
+                        <h3>Massothérapie Sur Mesure</h3>
+                        <p>Techniques adaptées à vos besoins spécifiques pour une relaxation profonde.</p>
+                        <ul>
+                            <li>Massage des tissus profonds</li>
+                            <li>Relaxation suédoise</li>
+                            <li>Rééducation sportive</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Thérapies intégrées">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        <h3>Thérapies Intégrées</h3>
+                        <p>Approches complémentaires pour optimiser vos résultats thérapeutiques.</p>
+                        <ul>
+                            <li>Ventouses (cupping)</li>
+                            <li>Moxibustion</li>
+                            <li>Consultation en MTC</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-img">
+                <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Caixia Yun">
+            </div>
+            <div class="about-content">
+                <h2>Notre Philosophie</h2>
+                <p>Fondée par Caixia Yun, praticienne en médecine traditionnelle chinoise diplômée avec 10 ans d'expérience à Montréal, la Clinique Bien-Être allie sagesse ancestrale et approche moderne pour un bien-être holistique.</p>
+                <p>Notre mission est de vous accompagner vers un équilibre physique et émotionnel durable, grâce à des techniques éprouvées et un suivi personnalisé.</p>
+                <p>Nous croyons en une médecine préventive qui respecte le rythme naturel de votre corps.</p>
+                <a href="#contact" class="btn">Rencontrer notre équipe</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <!-- <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Témoignages</h2>
+                <p>Ce que nos clients disent de nous</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <p>"Grâce aux séances d'acupuncture, mes migraines ont disparu en 3 mois ! L'approche globale de la clinique a changé ma qualité de vie."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Marie L.">
+                        <div class="author-info">
+                            <h4>Marie L.</h4>
+                            <p>Patiente depuis 2022</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <p>"Le massage post-opératoire était parfaitement adapté à ma condition. Professionnalisme et empathie exceptionnels. Je recommande !"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jean P.">
+                        <div class="author-info">
+                            <h4>Jean P.</h4>
+                            <p>Patiente depuis 2023</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <p>"Enfin une clinique qui prend le temps d'écouter avant de traiter. Les résultats ont dépassé mes attentes pour mon problème de dos chronique."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sophie T.">
+                        <div class="author-info">
+                            <h4>Sophie T.</h4>
+                            <p>Patiente depuis 2021</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Contact Section -->
+<!-- Contact Section -->
+<section class="contact" id="contact">
+    <div class="container">
+        <h2 class="section-title">Contactez-Nous</h2>
+
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Nos Coordonnées</h3>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <p>7930 Av Naples, Brossard, QC, J4Y 1Z9</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <p>514-809-7390</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <p>info@bienetreclinique.ca</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <p>Lun-Ven: 9h-18h<br>Sam: 10h-16h<br>Dim: Fermé</p>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2796.798246057726!2d-73.4508236844005!3d45.49463397910128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc93e8f7785f8e5%3A0x1b9c3e5b6d5f8e3d!2s7930%20Av%20Naples%2C%20Brossard%2C%20QC%20J4Y%201Z9!5e0!3m2!1sen!2sca!4v1620000000000!5m2!1sen!2sca" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <!-- 原有联系表单 -->
+                <form action="mailto:info@bienetreclinique.ca" method="post" enctype="text/plain">
+                    <div class="form-group">
+                        <label for="name">Nom Complet</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Téléphone</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Service Demandé</label>
+                        <select id="service" name="service">
+                            <option value="acupuncture">Acupuncture</option>
+                            <option value="massage">Massothérapie</option>
+                            <option value="ventouses">Ventouses</option>
+                            <option value="consultation">Consultation</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Envoyer la Demande</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 添加Calendly JS -->
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+<style>
+    /* 新增样式 */
+    .booking-cta {
+        text-align: center;
+        margin: 40px 0;
+    }
+    
+    .btn-large {
+        padding: 18px 45px;
+        font-size: 18px;
+        border-radius: 50px;
+        box-shadow: 0 5px 15px rgba(194, 92, 61, 0.3);
+    }
+    
+    .booking-hint {
+        margin-top: 10px;
+        font-size: 14px;
+        color: var(--gray);
+    }
+    
+    .booking-alternative {
+        text-align: center;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px dashed #ddd;
+    }
+    
+    .booking-alternative p {
+        margin-bottom: 15px;
+        color: var(--gray);
+    }
+</style>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>Clinique Bien-Être</h3>
+                    <p>Acupuncture & Massothérapie professionnelle à Brossard depuis 2020.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Liens Rapides</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Accueil</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">À Propos</a></li>
+                        <li><a href="#testimonials">Témoignages</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Acupuncture</a></li>
+                        <li><a href="#">Massothérapie</a></li>
+                        <li><a href="#">Ventouses</a></li>
+                        <li><a href="#">Moxibustion</a></li>
+                        <li><a href="#">Consultation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Informations</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Politique de confidentialité</a></li>
+                        <li><a href="#">Conditions d'utilisation</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Blog Santé</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Clinique Bien-Être Acupuncture & Massage. Tous droits réservés.</p>
+                <p><small>Les résultats peuvent varier selon chaque individu.</small></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
