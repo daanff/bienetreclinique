@@ -388,6 +388,74 @@
             height: 150px;
         }
         
+        /* Career Section */
+        .career {
+            background-color: var(--light);
+        }
+        
+        .career-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .career-content h2 {
+            margin-bottom: 30px;
+        }
+        
+        .career-content p {
+            margin-bottom: 20px;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+        
+        .career-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .career-highlight {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .career-highlight h4 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .career-highlight ul {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .career-highlight li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .career-highlight li:before {
+            content: '✓';
+            color: var(--secondary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .career-cta {
+            margin-top: 40px;
+        }
+        
+        .career-cta .btn {
+            margin: 10px;
+        }
+        
         /* Footer */
         footer {
             background-color: var(--primary);
@@ -527,6 +595,7 @@
                     <li><a href="#home">Accueil</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#about">Notre Philosophie</a></li>
+                    <li><a href="#career">Carrières</a></li>
                     <!-- <li><a href="#testimonials">Témoignages</a></li> -->
                     <li><a href="#contact">Contact</a></li>
                 </ul>
@@ -607,6 +676,40 @@
                         </ul>
                     </div>
                 </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://raw.githubusercontent.com/daanff/bienetreclinique/main/OSTEO.jpg" alt="Ostéopathie">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-bone"></i>
+                        </div>
+                        <h3>Ostéopathie & Thérapie Manuelle</h3>
+                        <p>Techniques manuelles pour restaurer l'équilibre musculo-squelettique et améliorer la mobilité.</p>
+                        <ul>
+                            <li>Correction des désalignements</li>
+                            <li>Libération des tensions musculaires</li>
+                            <li>Amélioration de la posture</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://raw.githubusercontent.com/daanff/bienetreclinique/main/HERB.jpg" alt="Médecine Herbaliste">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3>Médecine Herbaliste Traditionnelle</h3>
+                        <p>Formules personnalisées de plantes médicinales pour soutenir votre santé naturelle.</p>
+                        <ul>
+                            <li>Formules personnalisées</li>
+                            <li>Plantes médicinales chinoises</li>
+                            <li>Support immunitaire</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -640,6 +743,45 @@
                 <p>Notre mission est de vous accompagner vers un équilibre physique et émotionnel durable, grâce à des techniques éprouvées et un suivi personnalisé.</p>
                 <p>Nous croyons en une médecine préventive qui respecte le rythme naturel de votre corps.</p>
                 <!-- <a href="#contact" class="btn">Rencontrer notre équipe</a> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Section -->
+    <section class="career" id="career">
+        <div class="container">
+            <div class="career-content">
+                <h2 class="section-title">Rejoignez Notre Équipe</h2>
+                <p>Nous recherchons des professionnels passionnés pour rejoindre notre équipe de massothérapie et contribuer à la santé et au bien-être de nos clients.</p>
+                
+                <div class="career-highlights">
+                    <div class="career-highlight">
+                        <h4><i class="fas fa-user-plus"></i> Poste Disponible</h4>
+                        <ul>
+                            <li>Massothérapeute (Femme)</li>
+                            <li>Temps plein / Temps partiel</li>
+                            <li>Horaires flexibles</li>
+                            <li>Formation fournie</li>
+                        </ul>
+                    </div>
+                    <div class="career-highlight">
+                        <h4><i class="fas fa-star"></i> Avantages</h4>
+                        <ul>
+                            <li>Clientèle stable</li>
+                            <li>Commission attractive</li>
+                            <li>Équipe harmonieuse</li>
+                            <li>Support administratif</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="career-cta">
+                    <p><strong>Exigences :</strong> Formation en massothérapie, statut légal de travail, communication en français/anglais/mandarin, attitude professionnelle et bienveillante.</p>
+                    <p><strong>Expérience :</strong> Bienvenue aux débutants - formation et encadrement fournis.</p>
+                    <a href="mailto:info@bienetreclinique.ca?subject=Candidature%20Massothérapeute" class="btn">
+                        <i class="fas fa-envelope"></i> Postuler Maintenant
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -724,7 +866,7 @@
                         <div class="contact-icon">
                             <i class="fas fa-clock"></i>
                         </div>
-                        <p>Lun-Dim: 10h00 à 20h00</p>
+                        <p>Lun, Mer, Ven-Sam-Dim: 10h00 à 20h00<br>Mar et Jeu: Fermé</p>
                     </div>
                 </div>
                 <div class="map-container">
@@ -761,6 +903,8 @@
                             <option value="acupuncture">Acupuncture</option>
                             <option value="massage">Massothérapie</option>
                             <option value="ventouses">Ventouses</option>
+                            <option value="osteopathie">Ostéopathie & Thérapie Manuelle</option>
+                            <option value="herbaliste">Médecine Herbaliste</option>
                             <option value="consultation">Consultation</option>
                             <option value="autre">Autre</option>
                         </select>
@@ -832,6 +976,7 @@
                         <li><a href="#home">Accueil</a></li>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#about">Notre Philosophie</a></li>
+                        <li><a href="#career">Carrières</a></li>
                         <!-- <li><a href="#testimonials">Témoignages</a></li> -->
                         <li><a href="#contact">Contact</a></li>
                     </ul>
@@ -842,6 +987,8 @@
                         <li><a href="#">Acupuncture</a></li>
                         <li><a href="#">Massothérapie</a></li>
                         <li><a href="#">Ventouses</a></li>
+                        <li><a href="#">Ostéopathie</a></li>
+                        <li><a href="#">Médecine Herbaliste</a></li>
                         <li><a href="#">Moxibustion</a></li>
                         <li><a href="#">Consultation</a></li>
                     </ul>
