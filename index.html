@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clinique Bien-Être | Acupuncture & Massage - Brossard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-C314HPN1Q6">
+        </script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-C314HPN1Q6');
+        </script>
+        
+        
     <style>
         /* Global Styles */
         :root {
@@ -17,43 +33,46 @@
             --dark: #333333;
             --gray: #777777;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Lato', sans-serif;
             color: var(--dark);
             line-height: 1.6;
             background-color: white;
         }
-        
-        h1, h2, h3, h4 {
+
+        h1,
+        h2,
+        h3,
+        h4 {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             color: var(--primary);
         }
-        
+
         a {
             text-decoration: none;
             color: var(--secondary);
             transition: all 0.3s ease;
         }
-        
+
         a:hover {
             color: var(--primary);
         }
-        
+
         .container {
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 15px;
         }
-        
+
         .btn {
             display: inline-block;
             padding: 12px 30px;
@@ -67,34 +86,34 @@
             border: none;
             cursor: pointer;
         }
-        
+
         .btn:hover {
             background-color: var(--primary);
             color: white;
             transform: translateY(-3px);
         }
-        
+
         .btn-outline {
             background-color: transparent;
             border: 2px solid var(--secondary);
             color: var(--secondary);
         }
-        
+
         .btn-outline:hover {
             background-color: var(--secondary);
             color: white;
         }
-        
+
         section {
             padding: 80px 0;
         }
-        
+
         .section-title {
             text-align: center;
             margin-bottom: 60px;
             position: relative;
         }
-        
+
         .section-title:after {
             content: '';
             display: block;
@@ -103,7 +122,7 @@
             background-color: var(--secondary);
             margin: 20px auto 0;
         }
-        
+
         /* Header */
         header {
             background-color: white;
@@ -113,34 +132,34 @@
             top: 0;
             z-index: 1000;
         }
-        
+
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 0;
         }
-        
+
         .logo {
             font-family: 'Playfair Display', serif;
             font-size: 24px;
             font-weight: 700;
             color: var(--primary);
         }
-        
+
         .logo span {
             color: var(--secondary);
         }
-        
+
         .nav-links {
             display: flex;
             list-style: none;
         }
-        
+
         .nav-links li {
             margin-left: 30px;
         }
-        
+
         .nav-links a {
             color: var(--dark);
             font-weight: 700;
@@ -148,11 +167,11 @@
             font-size: 14px;
             letter-spacing: 1px;
         }
-        
+
         .nav-links a:hover {
             color: var(--secondary);
         }
-        
+
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -161,7 +180,7 @@
             color: var(--primary);
             cursor: pointer;
         }
-        
+
         /* Hero Section */
         .hero {
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
@@ -172,41 +191,41 @@
             color: white;
             margin-top: 80px;
         }
-        
+
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
             padding: 0 20px;
         }
-        
+
         .hero h1 {
             font-size: 48px;
             margin-bottom: 20px;
             color: white;
         }
-        
+
         .hero p {
             font-size: 20px;
             margin-bottom: 30px;
         }
-        
+
         .hero-btns {
             display: flex;
             justify-content: center;
             gap: 20px;
         }
-        
+
         /* Services Section */
         .services {
             background-color: var(--light);
         }
-        
+
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
-        
+
         .service-card {
             background-color: white;
             border-radius: 8px;
@@ -214,107 +233,107 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
-        
+
         .service-card:hover {
             transform: translateY(-10px);
         }
-        
+
         .service-img {
             height: 200px;
             overflow: hidden;
         }
-        
+
         .service-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
-        
+
         .service-card:hover .service-img img {
             transform: scale(1.1);
         }
-        
+
         .service-content {
             padding: 30px;
         }
-        
+
         .service-content h3 {
             margin-bottom: 15px;
             font-size: 22px;
         }
-        
+
         .service-content p {
             margin-bottom: 20px;
             color: var(--gray);
         }
-        
+
         .service-icon {
             font-size: 40px;
             color: var(--secondary);
             margin-bottom: 20px;
         }
-        
+
         /* About Section */
         .about {
             display: flex;
             align-items: center;
             gap: 50px;
         }
-        
+
         .about-img {
             flex: 1;
             border-radius: 8px;
             overflow: hidden;
         }
-        
+
         .about-img img {
             width: 100%;
             height: auto;
             display: block;
         }
-        
+
         .about-content {
             flex: 1;
         }
-        
+
         .about-content h2 {
             margin-bottom: 20px;
         }
-        
+
         .about-content p {
             margin-bottom: 15px;
         }
-        
+
         /* Testimonials Section */
         .testimonials {
             background-color: var(--light);
         }
-        
+
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
-        
+
         .testimonial-card {
             background-color: white;
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
-        
+
         .testimonial-text {
             font-style: italic;
             margin-bottom: 20px;
             color: var(--gray);
         }
-        
+
         .testimonial-author {
             display: flex;
             align-items: center;
         }
-        
+
         .testimonial-author img {
             width: 50px;
             height: 50px;
@@ -322,58 +341,58 @@
             object-fit: cover;
             margin-right: 15px;
         }
-        
+
         .author-info h4 {
             margin-bottom: 5px;
             font-size: 18px;
         }
-        
+
         .author-info p {
             color: var(--gray);
             font-size: 14px;
         }
-        
+
         /* Contact Section */
         .contact {
             background-color: white;
         }
-        
+
         .contact-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 50px;
         }
-        
+
         .contact-info h3 {
             margin-bottom: 20px;
         }
-        
+
         .contact-details {
             margin-bottom: 30px;
         }
-        
+
         .contact-item {
             display: flex;
             align-items: flex-start;
             margin-bottom: 15px;
         }
-        
+
         .contact-icon {
             margin-right: 15px;
             color: var(--secondary);
             font-size: 20px;
         }
-        
+
         .contact-form .form-group {
             margin-bottom: 20px;
         }
-        
+
         .contact-form label {
             display: block;
             margin-bottom: 5px;
             font-weight: 700;
         }
-        
+
         .contact-form input,
         .contact-form textarea,
         .contact-form select {
@@ -383,63 +402,63 @@
             border-radius: 4px;
             font-family: 'Lato', sans-serif;
         }
-        
+
         .contact-form textarea {
             height: 150px;
         }
-        
+
         /* Career Section */
         .career {
             background-color: var(--light);
         }
-        
+
         .career-content {
             max-width: 800px;
             margin: 0 auto;
             text-align: center;
         }
-        
+
         .career-content h2 {
             margin-bottom: 30px;
         }
-        
+
         .career-content p {
             margin-bottom: 20px;
             font-size: 18px;
             line-height: 1.8;
         }
-        
+
         .career-highlights {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
             margin: 40px 0;
         }
-        
+
         .career-highlight {
             background-color: white;
             padding: 25px;
             border-radius: 8px;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
-        
+
         .career-highlight h4 {
             color: var(--secondary);
             margin-bottom: 15px;
             font-size: 20px;
         }
-        
+
         .career-highlight ul {
             list-style: none;
             text-align: left;
         }
-        
+
         .career-highlight li {
             margin-bottom: 8px;
             padding-left: 20px;
             position: relative;
         }
-        
+
         .career-highlight li:before {
             content: '✓';
             color: var(--secondary);
@@ -447,61 +466,61 @@
             position: absolute;
             left: 0;
         }
-        
+
         .career-cta {
             margin-top: 40px;
         }
-        
+
         .career-cta .btn {
             margin: 10px;
         }
-        
+
         /* Footer */
         footer {
             background-color: var(--primary);
             color: white;
             padding: 60px 0 20px;
         }
-        
+
         .footer-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 30px;
             margin-bottom: 40px;
         }
-        
+
         .footer-col h3 {
             color: white;
             margin-bottom: 20px;
             font-size: 18px;
         }
-        
+
         .footer-links {
             list-style: none;
         }
-        
+
         .footer-links li {
             margin-bottom: 10px;
         }
-        
+
         .footer-links a {
             color: rgba(255, 255, 255, 0.7);
         }
-        
+
         .footer-links a:hover {
             color: white;
         }
-        
+
         .social-links {
             display: flex;
             gap: 15px;
         }
-        
+
         .social-links a {
             color: white;
             font-size: 20px;
         }
-        
+
         .copyright {
             text-align: center;
             padding-top: 20px;
@@ -509,24 +528,158 @@
             color: rgba(255, 255, 255, 0.7);
             font-size: 14px;
         }
-        
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--gray);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--secondary);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-header h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .modal-header .announcement-badge {
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hours-section {
+            margin: 25px 0;
+        }
+
+        .hours-section h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 18px;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 8px;
+        }
+
+        .hours-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .hours-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .hours-list li:last-child {
+            border-bottom: none;
+        }
+
+        .day {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .time {
+            color: var(--gray);
+        }
+
+        .closed {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .modal-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .modal-footer p {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
         /* Responsive Styles */
         @media (max-width: 992px) {
             .about {
                 flex-direction: column;
             }
-            
-            .about-img, .about-content {
+
+            .about-img,
+            .about-content {
                 flex: none;
                 width: 100%;
             }
         }
-        
+
         @media (max-width: 768px) {
             .mobile-menu-btn {
                 display: block;
             }
-            
+
             .nav-links {
                 position: fixed;
                 top: 80px;
@@ -539,50 +692,111 @@
                 padding: 40px 0;
                 transition: all 0.5s ease;
             }
-            
+
             .nav-links.active {
                 left: 0;
             }
-            
+
             .nav-links li {
                 margin: 15px 0;
             }
-            
+
             .hero h1 {
                 font-size: 36px;
             }
-            
+
             .hero p {
                 font-size: 18px;
             }
-            
+
             .hero-btns {
                 flex-direction: column;
                 gap: 10px;
             }
-            
+
             section {
                 padding: 60px 0;
             }
         }
-        
+
         @media (max-width: 576px) {
             .hero h1 {
                 font-size: 28px;
             }
-            
+
             .hero p {
                 font-size: 16px;
             }
-            
+
             .btn {
                 padding: 10px 20px;
                 font-size: 14px;
             }
+
+            .modal-content {
+                padding: 25px;
+                margin: 20px;
+            }
+
+            .modal-header h3 {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
+
 <body>
+    <!-- Hours Change Modal -->
+    <div class="modal-overlay" id="hoursModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <div class="announcement-badge">Important</div>
+                <h3><i class="fas fa-clock"></i> Changement d'Horaires</h3>
+            </div>
+
+            <div class="hours-section">
+                <h4><i class="fas fa-calendar-alt"></i> Nouveaux Horaires d'Ouverture</h4>
+                <ul class="hours-list">
+                    <li>
+                        <span class="day">Lundi</span>
+                        <span class="time closed">Fermé</span>
+                    </li>
+                    <li>
+                        <span class="day">Mardi</span>
+                        <span class="time">10h00 - 20h00</span>
+                    </li>
+                    <li>
+                        <span class="day">Mercredi</span>
+                        <span class="time">9h00 - 19h00</span>
+                    </li>
+                    <li>
+                        <span class="day">Jeudi</span>
+                        <span class="time">9h00 - 19h00</span>
+                    </li>
+                    <li>
+                        <span class="day">Vendredi</span>
+                        <span class="time">10h00 - 20h00</span>
+                    </li>
+                    <li>
+                        <span class="day">Samedi</span>
+                        <span class="time">10h00 - 20h00</span>
+                    </li>
+                    <li>
+                        <span class="day">Dimanche</span>
+                        <span class="time closed">Fermé</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="modal-footer">
+                <p><i class="fas fa-info-circle"></i> Ces nouveaux horaires sont effectifs immédiatement. Merci de votre
+                    compréhension.</p>
+                <button class="btn" onclick="closeModal()">J'ai compris</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -609,7 +823,9 @@
             <h1>Votre Santé, Notre Priorité</h1>
             <p>Acupuncture traditionnelle & Massothérapie professionnelle à Brossard</p>
             <div class="hero-btns">
-                <button onclick="try { Calendly.initPopupWidget({url: 'https://c.insightdns.com/$/Start/?ID=8A21401D97A6629C11521444B53D8591'}); } catch(e) { window.open('https://c.insightdns.com/$/Start/?ID=8A21401D97A6629C11521444B53D8591', '_blank'); }" class="btn btn-large">
+                <button
+                    onclick="try { Calendly.initPopupWidget({url: 'https://c.insightdns.com/$/Start/?ID=8A21401D97A6629C11521444B53D8591'}); } catch(e) { window.open('https://c.insightdns.com/$/Start/?ID=8A21401D97A6629C11521444B53D8591', '_blank'); }"
+                    class="btn btn-large">
                     <i class="fas fa-calendar-alt"></i> Réserver
                 </button>
                 <a href="#services" class="btn btn-outline">Nos Services</a>
@@ -627,7 +843,8 @@
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-img">
-                        <img src="https://raw.githubusercontent.com/daanff/bienetreclinique/main/acupuncture.jpg" alt="Acupuncture">
+                        <img src="https://raw.githubusercontent.com/daanff/bienetreclinique/main/acupuncture.jpg"
+                            alt="Acupuncture">
                     </div>
                     <div class="service-content">
                         <div class="service-icon">
@@ -644,7 +861,8 @@
                 </div>
                 <div class="service-card">
                     <div class="service-img">
-                        <img src="https://raw.githubusercontent.com/daanff/bienetreclinique/main/massage.jpg" alt="Massothérapie">
+                        <img src="https://raw.githubusercontent.com/daanff/bienetreclinique/main/massage.jpg"
+                            alt="Massothérapie">
                     </div>
                     <div class="service-content">
                         <div class="service-icon">
@@ -661,7 +879,8 @@
                 </div>
                 <div class="service-card">
                     <div class="service-img">
-                        <img src="https://raw.githubusercontent.com/daanff/bienetreclinique/main/cupping.jpg" alt="Thérapies intégrées">
+                        <img src="https://raw.githubusercontent.com/daanff/bienetreclinique/main/cupping.jpg"
+                            alt="Thérapies intégrées">
                     </div>
                     <div class="service-content">
                         <div class="service-icon">
@@ -678,14 +897,16 @@
                 </div>
                 <div class="service-card">
                     <div class="service-img">
-                        <img src="https://raw.githubusercontent.com/daanff/bienetreclinique/main/OSTEO.jpg" alt="Ostéopathie">
+                        <img src="https://raw.githubusercontent.com/daanff/bienetreclinique/main/OSTEO.jpg"
+                            alt="Ostéopathie">
                     </div>
                     <div class="service-content">
                         <div class="service-icon">
                             <i class="fas fa-bone"></i>
                         </div>
                         <h3>Ostéopathie & Thérapie Manuelle</h3>
-                        <p>Techniques manuelles pour restaurer l'équilibre musculo-squelettique et améliorer la mobilité.</p>
+                        <p>Techniques manuelles pour restaurer l'équilibre musculo-squelettique et améliorer la
+                            mobilité.</p>
                         <ul>
                             <li>Correction des désalignements</li>
                             <li>Libération des tensions musculaires</li>
@@ -695,7 +916,8 @@
                 </div>
                 <div class="service-card">
                     <div class="service-img">
-                        <img src="https://raw.githubusercontent.com/daanff/bienetreclinique/main/HERB.jpg" alt="Médecine Herbaliste">
+                        <img src="https://raw.githubusercontent.com/daanff/bienetreclinique/main/HERB.jpg"
+                            alt="Médecine Herbaliste">
                     </div>
                     <div class="service-content">
                         <div class="service-icon">
@@ -722,16 +944,20 @@
             </div>
             <div class="about-content">
                 <h2>Notre Philosophie</h2>
-                <p>Fondée par Caixia Yun, praticienne en médecine traditionnelle chinoise diplômée avec 15 ans d'expérience à Montréal, la Clinique Bien-Être allie sagesse ancestrale et approche moderne pour un bien-être holistique.</p>
+                <p>Fondée par Caixia Yun, praticienne en médecine traditionnelle chinoise diplômée avec 15 ans
+                    d'expérience à Montréal, la Clinique Bien-Être allie sagesse ancestrale et approche moderne pour un
+                    bien-être holistique.</p>
                 <p>
                     Caixia Yun Ac.<br>
                     Acupuncteur, nombre de L'OAQ<br>
                     Plus de 15 ans d'expérience professionnelle.<br>
-                    Maîtrise en acupuncture, formée auprès du maître de la médecine traditionnelle chinoise, M. Shi Xueming, ancien docteur en acupuncture dans de grands hôpitaux en Chine Tianjin.
+                    Maîtrise en acupuncture, formée auprès du maître de la médecine traditionnelle chinoise, M. Shi
+                    Xueming, ancien docteur en acupuncture dans de grands hôpitaux en Chine Tianjin.
                 </p>
                 <p>Spécialisé dans le traitement de :</p>
                 <ul>
-                    <li>Douleurs musculaires et articulaires (maux de tête, cervicalgie, lombalgie, arthrite, tendinite…)</li>
+                    <li>Douleurs musculaires et articulaires (maux de tête, cervicalgie, lombalgie, arthrite,
+                        tendinite…)</li>
                     <li>Paralysie faciale, séquelles d'AVC</li>
                     <li>Troubles gastro-intestinaux</li>
                     <li>Insomnie, stress, fatigue</li>
@@ -740,7 +966,8 @@
                     <li>Soins esthétiques (acupuncture visage, anti-rides)</li>
                     <li>Perte de poids, etc.</li>
                 </ul>
-                <p>Notre mission est de vous accompagner vers un équilibre physique et émotionnel durable, grâce à des techniques éprouvées et un suivi personnalisé.</p>
+                <p>Notre mission est de vous accompagner vers un équilibre physique et émotionnel durable, grâce à des
+                    techniques éprouvées et un suivi personnalisé.</p>
                 <p>Nous croyons en une médecine préventive qui respecte le rythme naturel de votre corps.</p>
                 <!-- <a href="#contact" class="btn">Rencontrer notre équipe</a> -->
             </div>
@@ -752,8 +979,9 @@
         <div class="container">
             <div class="career-content">
                 <h2 class="section-title">Rejoignez Notre Équipe</h2>
-                <p>Nous recherchons des professionnels passionnés pour rejoindre notre équipe de massothérapie et contribuer à la santé et au bien-être de nos clients.</p>
-                
+                <p>Nous recherchons des professionnels passionnés pour rejoindre notre équipe de massothérapie et
+                    contribuer à la santé et au bien-être de nos clients.</p>
+
                 <div class="career-highlights">
                     <div class="career-highlight">
                         <h4><i class="fas fa-user-plus"></i> Poste Disponible</h4>
@@ -774,9 +1002,10 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="career-cta">
-                    <p><strong>Exigences :</strong> Formation en massothérapie, statut légal de travail, communication en français/anglais/mandarin, attitude professionnelle et bienveillante.</p>
+                    <p><strong>Exigences :</strong> Formation en massothérapie, statut légal de travail, communication
+                        en français/anglais/mandarin, attitude professionnelle et bienveillante.</p>
                     <p><strong>Expérience :</strong> Bienvenue aux débutants - formation et encadrement fournis.</p>
                     <a href="mailto:info@bienetreclinique.ca?subject=Candidature%20Massothérapeute" class="btn">
                         <i class="fas fa-envelope"></i> Postuler Maintenant
@@ -835,132 +1064,133 @@
     </section> -->
 
     <!-- Contact Section -->
-<!-- Contact Section -->
-<section class="contact" id="contact">
-    <div class="container">
-        <h2 class="section-title">Contactez-Nous</h2>
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contactez-Nous</h2>
 
-        <div class="contact-container">
-            <div class="contact-info">
-                <h3>Nos Coordonnées</h3>
-                <div class="contact-details">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Nos Coordonnées</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <p>3-8500Taschereau Blvd, Brossard, QC, J4X 2T4</p>
                         </div>
-                        <p>3-8500Taschereau Blvd, Brossard, QC, J4X 2T4</p>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <p>(450)486-6677</p>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <p>info@bienetreclinique.ca</p>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <p>
+                                <strong>Nouveaux Horaires:</strong><br>
+                                Mardi: 10h00 - 20h00<br>
+                                Mercredi: 9h00 - 19h00<br>
+                                Jeudi: 9h00 - 19h00<br>
+                                Vendredi: 10h00 - 20h00<br>
+                                Samedi: 10h00 - 20h00<br>
+                                Dimanche et Lundi: Fermé
+                            </p>
+                        </div>
+
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <p>(450)486-6677</p>
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2795.777021393716!2d-73.47349!3d45.44403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91a241a622b5d%3A0x3b7b05a67c5e79b2!2s3-8500%20Taschereau%20Blvd%2C%20Brossard%2C%20QC%20J4X%202T4!5e0!3m2!1sen!2sca!4v1716044200000!5m2!1sen!2sca"
+                            width="550" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
+                </div>
+
+                <div class="contact-form">
+                    <!-- 原有联系表单 -->
+                    <form action="mailto:info@bienetreclinique.ca" method="post" enctype="text/plain">
+                        <div class="form-group">
+                            <label for="name">Nom Complet</label>
+                            <input type="text" id="name" name="name" required>
                         </div>
-                        <p>info@bienetreclinique.ca</p>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
                         </div>
-                        <p>
-                            Mar, Ven, Sam: 10h00 à 20h00<br>
-                            Mer, Jeu: 9h00 à 19h00<br>
-                            Dim et Lun: Fermé
-                        </p>
+                        <div class="form-group">
+                            <label for="phone">Téléphone</label>
+                            <input type="tel" id="phone" name="phone" required>
                         </div>
+                        <div class="form-group">
+                            <label for="service">Service Demandé</label>
+                            <select id="service" name="service">
+                                <option value="acupuncture">Acupuncture</option>
+                                <option value="massage">Massothérapie</option>
+                                <option value="ventouses">Ventouses</option>
+                                <option value="osteopathie">Ostéopathie & Thérapie Manuelle</option>
+                                <option value="herbaliste">Médecine Herbaliste</option>
+                                <option value="consultation">Consultation</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Envoyer la Demande</button>
+                    </form>
 
                 </div>
-                <div class="map-container">
-                    <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2795.777021393716!2d-73.47349!3d45.44403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91a241a622b5d%3A0x3b7b05a67c5e79b2!2s3-8500%20Taschereau%20Blvd%2C%20Brossard%2C%20QC%20J4X%202T4!5e0!3m2!1sen!2sca!4v1716044200000!5m2!1sen!2sca"
-                    width="550"
-                    height="450"
-                    style="border:0;"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
-                  </iframe>                  
-                </div>
-            </div>
-            
-            <div class="contact-form">
-                <!-- 原有联系表单 -->
-                <form action="mailto:info@bienetreclinique.ca" method="post" enctype="text/plain">
-                    <div class="form-group">
-                        <label for="name">Nom Complet</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Téléphone</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="service">Service Demandé</label>
-                        <select id="service" name="service">
-                            <option value="acupuncture">Acupuncture</option>
-                            <option value="massage">Massothérapie</option>
-                            <option value="ventouses">Ventouses</option>
-                            <option value="osteopathie">Ostéopathie & Thérapie Manuelle</option>
-                            <option value="herbaliste">Médecine Herbaliste</option>
-                            <option value="consultation">Consultation</option>
-                            <option value="autre">Autre</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn">Envoyer la Demande</button>
-                </form>
-                
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- 添加Calendly JS -->
-<script type="text/javascript" src="https://c.insightdns.com/$/Start/?ID=8A21401D97A6629C11521444B53D8591" async></script>
+    <!-- 添加Calendly JS -->
+    <script type="text/javascript" src="https://c.insightdns.com/$/Start/?ID=8A21401D97A6629C11521444B53D8591"
+        async></script>
 
-<style>
-    /* 新增样式 */
-    .booking-cta {
-        text-align: center;
-        margin: 40px 0;
-    }
-    
-    .btn-large {
-        padding: 18px 45px;
-        font-size: 18px;
-        border-radius: 50px;
-        box-shadow: 0 5px 15px rgba(194, 92, 61, 0.3);
-    }
-    
-    .booking-hint {
-        margin-top: 10px;
-        font-size: 14px;
-        color: var(--gray);
-    }
-    
-    .booking-alternative {
-        text-align: center;
-        margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px dashed #ddd;
-    }
-    
-    .booking-alternative p {
-        margin-bottom: 15px;
-        color: var(--gray);
-    }
-</style>
+    <style>
+        /* 新增样式 */
+        .booking-cta {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .btn-large {
+            padding: 18px 45px;
+            font-size: 18px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(194, 92, 61, 0.3);
+        }
+
+        .booking-hint {
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .booking-alternative {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #ddd;
+        }
+
+        .booking-alternative p {
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+    </style>
 
     <!-- Footer -->
     <footer>
@@ -1017,29 +1247,75 @@
 
     <!-- JavaScript -->
     <script>
+        // Hours Modal Functions
+        function showModal() {
+            const modal = document.getElementById('hoursModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('hoursModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+
+            // Set cookie to remember user has seen the modal
+            const expiryDate = new Date();
+            expiryDate.setDate(expiryDate.getDate() + 30); // 30 days
+            document.cookie = `hoursModalSeen=true; expires=${expiryDate.toUTCString()}; path=/`;
+        }
+
+        // Check if user has seen the modal before
+        function hasSeenModal() {
+            return document.cookie.split(';').some(cookie =>
+                cookie.trim().startsWith('hoursModalSeen=true')
+            );
+        }
+
+        // Show modal on page load if user hasn't seen it
+        window.addEventListener('load', () => {
+            if (!hasSeenModal()) {
+                setTimeout(showModal, 1000); // Show after 1 second
+            }
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('hoursModal').addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
         // Mobile Menu Toggle
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const navLinks = document.querySelector('.nav-links');
-        
+
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
-        
+
         // Close mobile menu when clicking on a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
             });
         });
-        
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
+
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
-                
+
                 if (targetElement) {
                     window.scrollTo({
                         top: targetElement.offsetTop - 80,
@@ -1050,4 +1326,5 @@
         });
     </script>
 </body>
+
 </html>
