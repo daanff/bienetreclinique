@@ -290,6 +290,21 @@
             margin: 20px auto 0;
         }
 
+        .section-title > p {
+            color: var(--gray);
+            font-size: 16px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+            margin: 12px auto 0;
+            line-height: 1.65;
+            max-width: 700px;
+        }
+
+        /* Booking — même fond et rythme que Services / Carrières */
+        .bk-section {
+            background-color: var(--light);
+        }
+
         /* Header */
         header {
             background-color: white;
@@ -1303,28 +1318,30 @@
          BOOKING SECTION — split panel, professional 4-step form
          ============================================================ -->
     <section class="bk-section" id="book">
+        <div class="container">
+            <div class="section-title">
+                <h2>Réservation en ligne</h2>
+                <p>Soumettez votre demande en quelques étapes. Notre équipe vous contactera sous 24 h pour confirmer votre rendez-vous.</p>
+            </div>
         <style>
-        /* ── Booking Section — Split Panel ── */
-        .bk-section { padding: 80px 24px; background: #f0f2f5; }
-        @media(max-width:860px){ .bk-section{ padding: 0; } }
-
+        /* ── Booking — panneau (aligné visuellement aux cartes Services) ── */
         .bk-split {
             display: grid;
             grid-template-columns: 340px 1fr;
             max-width: 1080px;
             margin: 0 auto;
-            border-radius: 20px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 24px 72px rgba(0,0,0,.14);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             min-height: 620px;
         }
         @media(max-width:860px){
-            .bk-split { grid-template-columns: 1fr; border-radius: 0; }
+            .bk-split { grid-template-columns: 1fr; border-radius: 8px; }
         }
 
         /* Left info panel */
         .bk-info-panel {
-            background: linear-gradient(160deg, #c25c3d 0%, #8b3420 100%);
+            background: linear-gradient(160deg, var(--secondary) 0%, #8b3420 100%);
             padding: 52px 40px;
             color: white;
             display: flex;
@@ -1340,7 +1357,7 @@
         }
         .bk-info-panel > * { position: relative; }
         .bk-info-logo { font-size: 44px; margin-bottom: 22px; }
-        .bk-info-panel h2 { font-size: 1.75rem; font-weight: 800; line-height: 1.2; margin-bottom: 14px; color: white; }
+        .bk-info-panel h3 { font-size: 1.75rem; font-weight: 800; line-height: 1.2; margin-bottom: 14px; color: white; font-family: 'Playfair Display', serif; }
         .bk-info-tagline { font-size: 14px; line-height: 1.75; opacity: .85; margin-bottom: 36px; }
         .bk-info-divider { border: none; border-top: 1px solid rgba(255,255,255,.2); margin: 0 0 28px; }
         .bk-info-items { display: flex; flex-direction: column; gap: 18px; }
@@ -1553,8 +1570,8 @@
             <!-- ── Left: Clinic info panel ── -->
             <div class="bk-info-panel">
                 <div class="bk-info-logo"><i class="fas fa-leaf"></i></div>
-                <h2>Réservation<br>en ligne</h2>
-                <p class="bk-info-tagline">Prenez rendez-vous en quelques minutes. Notre équipe vous contactera sous 24 h pour confirmer.</p>
+                <h3>Nous sommes à votre écoute</h3>
+                <p class="bk-info-tagline">Horaires, adresse et moyens de nous joindre — réponse habituelle sous 24 h.</p>
                 <hr class="bk-info-divider">
                 <div class="bk-info-items">
                     <div class="bk-info-item">
@@ -2041,6 +2058,7 @@
 
         bkInit();
         </script>
+        </div>
     </section>
 
     <!-- ============================================================
