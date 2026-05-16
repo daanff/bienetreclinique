@@ -814,6 +814,7 @@
                     <li><a href="#about">Notre Philosophie</a></li>
                     <li><a href="#career">Carrières</a></li>
                     <!-- <li><a href="#testimonials">Témoignages</a></li> -->
+                    <li><a href="#book" style="color:var(--primary);font-weight:700;">Réserver</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -826,11 +827,10 @@
             <h1>Votre Santé, Notre Priorité</h1>
             <p>Acupuncture traditionnelle & Massothérapie professionnelle à Brossard</p>
             <div class="hero-btns">
-                <button
-                    onclick="try { Calendly.initPopupWidget({url: 'https://c.insightdns.com/$/Start/?ID=8A21401D97A6629C11521444B53D8591'}); } catch(e) { window.open('https://c.insightdns.com/$/Start/?ID=8A21401D97A6629C11521444B53D8591', '_blank'); }"
-                    class="btn btn-large">
-                    <i class="fas fa-calendar-alt"></i> Réserver
-                </button>
+                <a href="#book" class="btn btn-large"
+                    onclick="event.preventDefault();document.getElementById('book').scrollIntoView({behavior:'smooth'});">
+                    <i class="fas fa-calendar-alt"></i> Réserver en ligne
+                </a>
                 <a href="#services" class="btn btn-outline">Nos Services</a>
             </div>
         </div>
@@ -1066,8 +1066,697 @@
         </div>
     </section> -->
 
-    <!-- Contact Section -->
-    <!-- Contact Section -->
+    <!-- ============================================================
+         BOOKING SECTION — split panel, professional 4-step form
+         ============================================================ -->
+    <section class="bk-section" id="book">
+        <style>
+        /* ── Booking Section — Split Panel ── */
+        .bk-section { padding: 80px 24px; background: #f0f2f5; }
+        @media(max-width:860px){ .bk-section{ padding: 0; } }
+
+        .bk-split {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            max-width: 1080px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 24px 72px rgba(0,0,0,.14);
+            min-height: 620px;
+        }
+        @media(max-width:860px){
+            .bk-split { grid-template-columns: 1fr; border-radius: 0; }
+        }
+
+        /* Left info panel */
+        .bk-info-panel {
+            background: linear-gradient(160deg, #c25c3d 0%, #8b3420 100%);
+            padding: 52px 40px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .bk-info-panel::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        .bk-info-panel > * { position: relative; }
+        .bk-info-logo { font-size: 44px; margin-bottom: 22px; }
+        .bk-info-panel h2 { font-size: 1.75rem; font-weight: 800; line-height: 1.2; margin-bottom: 14px; color: white; }
+        .bk-info-tagline { font-size: 14px; line-height: 1.75; opacity: .85; margin-bottom: 36px; }
+        .bk-info-divider { border: none; border-top: 1px solid rgba(255,255,255,.2); margin: 0 0 28px; }
+        .bk-info-items { display: flex; flex-direction: column; gap: 18px; }
+        .bk-info-item { display: flex; align-items: flex-start; gap: 14px; font-size: 14px; line-height: 1.55; opacity: .9; }
+        .bk-info-item i { width: 18px; text-align: center; flex-shrink: 0; margin-top: 2px; font-size: 14px; }
+        .bk-info-item a { color: white; text-decoration: none; }
+        .bk-info-item a:hover { text-decoration: underline; }
+        .bk-info-footer { margin-top: auto; padding-top: 32px; font-size: 12px; opacity: .55; line-height: 1.6; }
+
+        /* Right form panel */
+        .bk-form-panel {
+            background: white;
+            padding: 52px 56px;
+            display: flex;
+            flex-direction: column;
+        }
+        @media(max-width:600px){ .bk-form-panel{ padding: 32px 22px; } }
+
+        /* Progress bar */
+        .bk-progress {
+            display:flex; align-items:center; margin-bottom:36px;
+        }
+        .bk-step-item {
+            display:flex; flex-direction:column; align-items:center; gap:5px; flex:0 0 auto;
+        }
+        .bk-step-circle {
+            width:44px; height:44px; border-radius:50%;
+            border:2px solid #ddd; background:#fff; color:#ccc;
+            display:flex; align-items:center; justify-content:center;
+            font-size:16px; transition:all .3s;
+        }
+        .bk-step-item span { font-size:11px; color:#bbb; font-weight:700; letter-spacing:.3px; transition:color .3s; white-space:nowrap; }
+        .bk-step-item.active .bk-step-circle { border-color:var(--primary); background:var(--primary); color:#fff; }
+        .bk-step-item.active span { color:var(--primary); }
+        .bk-step-item.done .bk-step-circle { border-color:#43a047; background:#43a047; color:#fff; }
+        .bk-step-item.done span { color:#43a047; }
+        .bk-connector { flex:1; height:2px; background:#e0e0e0; margin:0 6px 20px; transition:background .3s; }
+        .bk-connector.done { background:#43a047; }
+
+        /* Panel title */
+        .bk-panel-title { display:flex; align-items:center; gap:12px; margin-bottom:22px; }
+        .bk-num {
+            width:30px; height:30px; border-radius:50%;
+            background:var(--primary); color:#fff;
+            display:flex; align-items:center; justify-content:center;
+            font-weight:700; font-size:14px; flex-shrink:0;
+        }
+        .bk-panel-title h3 { margin:0; font-size:1.1rem; color:var(--dark); }
+
+        /* Grid rows */
+        .bk-row-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+        @media(max-width:560px){ .bk-row-2{ grid-template-columns:1fr; } }
+
+        /* Radio chips */
+        .bk-radios { display:flex; flex-wrap:wrap; gap:10px 20px; padding-top:8px; }
+        .bk-radios label {
+            display:flex; align-items:center; gap:7px;
+            cursor:pointer; font-weight:normal; color:var(--dark); font-size:14px;
+        }
+
+        /* Buttons */
+        .bk-actions { display:flex; align-items:center; justify-content:space-between; margin-top:28px; gap:12px; }
+        .bk-btn-next {
+            background:var(--primary); color:#fff; border:none;
+            padding:12px 26px; border-radius:8px; font-size:15px; font-weight:700;
+            cursor:pointer; display:inline-flex; align-items:center; gap:8px;
+            transition:opacity .2s; margin-left:auto;
+        }
+        .bk-btn-next:hover { opacity:.88; }
+        .bk-btn-back {
+            background:none; color:var(--gray); border:2px solid #e0e0e0;
+            padding:11px 22px; border-radius:8px; font-size:14px; font-weight:600;
+            cursor:pointer; display:inline-flex; align-items:center; gap:8px;
+            transition:all .2s;
+        }
+        .bk-btn-back:hover { border-color:var(--primary); color:var(--primary); }
+        .bk-btn-submit {
+            background:linear-gradient(135deg,var(--primary),#d96b50);
+            color:#fff; border:none;
+            padding:14px 30px; border-radius:8px; font-size:16px; font-weight:700;
+            cursor:pointer; display:inline-flex; align-items:center; gap:8px;
+            box-shadow:0 4px 16px rgba(194,92,61,.35); transition:opacity .2s; margin-left:auto;
+        }
+        .bk-btn-submit:hover { opacity:.88; }
+        .bk-btn-submit:disabled { opacity:.55; cursor:not-allowed; }
+
+        /* Time slots */
+        .bk-slots-hint { color:var(--gray); font-size:13px; margin-bottom:10px; }
+        .bk-slots-grid { display:flex; flex-wrap:wrap; gap:10px; margin-top:4px; }
+        .bk-slot {
+            padding:10px 16px; border:2px solid var(--primary);
+            border-radius:8px; background:#fff; color:var(--primary);
+            cursor:pointer; font-size:15px; font-weight:600; transition:all .2s;
+        }
+        .bk-slot:hover, .bk-slot.selected { background:var(--primary); color:#fff; }
+
+        /* Summary card */
+        .bk-summary {
+            background:#f8f9fa; border-radius:10px; padding:18px 22px;
+            margin-bottom:20px; border-left:4px solid var(--primary);
+        }
+        .bk-summary-row {
+            display:flex; justify-content:space-between; align-items:baseline;
+            padding:6px 0; font-size:14px; border-bottom:1px solid #eee;
+        }
+        .bk-summary-row:last-child { border-bottom:none; }
+        .bk-summary-row .s-label { color:var(--gray); }
+        .bk-summary-row .s-value { font-weight:700; color:var(--dark); text-align:right; }
+
+        /* State screens */
+        .bk-state {
+            text-align:center; padding:60px 20px;
+            display:flex; flex-direction:column; align-items:center; gap:14px;
+        }
+        .bk-state-icon { font-size:52px; color:#bbb; }
+        .bk-state h3 { color:var(--dark); margin:0; }
+        .bk-success-icon { font-size:66px; color:#43a047; }
+        .bk-spinner {
+            width:40px; height:40px; border:4px solid #e0e0e0;
+            border-top-color:var(--primary); border-radius:50%;
+            animation:bk-spin .8s linear infinite;
+        }
+        .bk-spinner-row { display:flex; align-items:center; gap:10px; color:var(--gray); font-size:14px; margin-bottom:10px; }
+        .bk-spinner-sm {
+            width:18px; height:18px; border:3px solid #e0e0e0;
+            border-top-color:var(--primary); border-radius:50%;
+            animation:bk-spin .8s linear infinite; flex-shrink:0;
+        }
+        @keyframes bk-spin { to{ transform:rotate(360deg); } }
+        .bk-error {
+            background:#fff0f0; border:1px solid #ffcccc; border-radius:8px;
+            padding:12px 16px; color:#c00; font-size:14px; margin-bottom:12px;
+        }
+        .bk-req { color:red; }
+        .bk-opt { color:var(--gray); font-size:12px; font-weight:normal; }
+
+        /* ── Booking form field sizing ── */
+        .bk-form-panel .form-group { margin-bottom: 24px; }
+        .bk-form-panel label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--dark);
+            letter-spacing: .1px;
+        }
+        .bk-form-panel input[type="text"],
+        .bk-form-panel input[type="tel"],
+        .bk-form-panel input[type="email"],
+        .bk-form-panel input[type="date"],
+        .bk-form-panel select,
+        .bk-form-panel textarea {
+            width: 100%;
+            padding: 13px 15px;
+            font-size: 15px;
+            font-family: 'Lato', sans-serif;
+            border: 1.5px solid #dde0e6;
+            border-radius: 8px;
+            background: #fafbfc;
+            color: var(--dark);
+            transition: border-color .2s, box-shadow .2s;
+            box-sizing: border-box;
+        }
+        .bk-form-panel input:focus,
+        .bk-form-panel select:focus,
+        .bk-form-panel textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(194,92,61,.12);
+            background: #fff;
+        }
+        .bk-form-panel .bk-radios { gap: 12px 24px; padding-top: 10px; }
+        .bk-form-panel .bk-radios label { font-size: 15px; margin-bottom: 0; font-weight: normal; letter-spacing: normal; }
+        .bk-form-panel .bk-radios input[type="radio"] { width: auto; margin: 0; }
+        </style>
+
+        <div class="bk-split">
+
+            <!-- ── Left: Clinic info panel ── -->
+            <div class="bk-info-panel">
+                <div class="bk-info-logo"><i class="fas fa-leaf"></i></div>
+                <h2>Réservation<br>en ligne</h2>
+                <p class="bk-info-tagline">Prenez rendez-vous en quelques minutes. Notre équipe vous contactera sous 24 h pour confirmer.</p>
+                <hr class="bk-info-divider">
+                <div class="bk-info-items">
+                    <div class="bk-info-item">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:4504866677">(450) 486-6677</a>
+                    </div>
+                    <div class="bk-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:info@bienetreclinique.ca">info@bienetreclinique.ca</a>
+                    </div>
+                    <div class="bk-info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>Mardi – Samedi : 10h – 20h<br><em style="opacity:.75">Dim &amp; Lun : Fermé</em></div>
+                    </div>
+                    <div class="bk-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>3-8500 Taschereau Blvd<br>Brossard, QC J4X 2T4</div>
+                    </div>
+                </div>
+                <p class="bk-info-footer">Clinique Bien-Être Acupuncture et Massage<br>Acupuncture · Massothérapie · Moxibustion</p>
+            </div>
+
+            <!-- ── Right: Form panel ── -->
+            <div class="bk-form-panel">
+
+                <!-- Loading -->
+                <div id="bk-loading" class="bk-state">
+                    <div class="bk-spinner"></div>
+                    <p>Chargement du formulaire…</p>
+                </div>
+
+                <!-- Disabled -->
+                <div id="bk-disabled" class="bk-state" style="display:none">
+                    <i class="fas fa-calendar-times bk-state-icon"></i>
+                    <h3>Réservations temporairement désactivées</h3>
+                    <p>Appelez-nous au <a href="tel:4504866677" style="color:var(--primary)">(450) 486-6677</a></p>
+                </div>
+
+                <!-- Form wrapper -->
+                <div id="bk-form-wrapper" style="display:none">
+
+                    <!-- Progress bar -->
+                    <div class="bk-progress">
+                        <div class="bk-step-item active" data-s="1">
+                            <div class="bk-step-circle"><i class="fas fa-user"></i></div>
+                            <span>Infos</span>
+                        </div>
+                        <div class="bk-connector"></div>
+                        <div class="bk-step-item" data-s="2">
+                            <div class="bk-step-circle"><i class="fas fa-spa"></i></div>
+                            <span>Service</span>
+                        </div>
+                        <div class="bk-connector"></div>
+                        <div class="bk-step-item" data-s="3">
+                            <div class="bk-step-circle"><i class="fas fa-clock"></i></div>
+                            <span>Horaire</span>
+                        </div>
+                        <div class="bk-connector"></div>
+                        <div class="bk-step-item" data-s="4">
+                            <div class="bk-step-circle"><i class="fas fa-check"></i></div>
+                            <span>Confirmer</span>
+                        </div>
+                    </div>
+
+                    <form id="booking-form" novalidate>
+
+                        <!-- Step 1: Personal info -->
+                        <div class="bk-panel" id="bk-panel-1">
+                            <div class="bk-panel-title">
+                                <div class="bk-num">1</div>
+                                <h3>Vos informations personnelles</h3>
+                            </div>
+                            <div class="form-group">
+                                <label for="bk-name">Nom complet <span class="bk-req">*</span></label>
+                                <input type="text" id="bk-name" placeholder="Prénom Nom" autocomplete="name">
+                            </div>
+                            <div class="bk-row-2">
+                                <div class="form-group">
+                                    <label for="bk-phone">Téléphone <span class="bk-req">*</span></label>
+                                    <input type="tel" id="bk-phone" placeholder="(514) 000-0000" autocomplete="tel">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bk-email">Courriel <span class="bk-req">*</span></label>
+                                    <input type="email" id="bk-email" placeholder="vous@exemple.com" autocomplete="email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Votre genre</label>
+                                <div class="bk-radios">
+                                    <label><input type="radio" name="bk-client-gender" value="female"> Femme</label>
+                                    <label><input type="radio" name="bk-client-gender" value="male"> Homme</label>
+                                    <label><input type="radio" name="bk-client-gender" value="other" checked> Autre / Ne pas préciser</label>
+                                </div>
+                            </div>
+                            <div id="bk-err-1" class="bk-error" style="display:none"></div>
+                            <div class="bk-actions">
+                                <button type="button" class="bk-btn-next" onclick="bkNext(1)">Suivant&nbsp;<i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Service & Date -->
+                        <div class="bk-panel" id="bk-panel-2" style="display:none">
+                            <div class="bk-panel-title">
+                                <div class="bk-num">2</div>
+                                <h3>Service &amp; Date</h3>
+                            </div>
+                            <div class="form-group">
+                                <label for="bk-service">Service souhaité <span class="bk-req">*</span></label>
+                                <select id="bk-service">
+                                    <option value="">— Sélectionnez —</option>
+                                    <option value="massage_1h">Massage – 1 heure</option>
+                                    <option value="massage_1_5h">Massage – 1 heure 30</option>
+                                    <option value="acupuncture">Acupuncture</option>
+                                    <option value="consultation_acupuncture">Consultation + Acupuncture</option>
+                                    <option value="moxibustion_cupping">Moxibustion &amp; Ventouses</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="bk-therapist-gender-group" style="display:none">
+                                <label>Préférence de thérapeute</label>
+                                <div class="bk-radios">
+                                    <label><input type="radio" name="bk-t-gender" value="female"><i class="fas fa-female" style="color:var(--primary)"></i>&nbsp;Thérapeute femme</label>
+                                    <label><input type="radio" name="bk-t-gender" value="male"><i class="fas fa-male" style="color:var(--primary)"></i>&nbsp;Thérapeute homme</label>
+                                    <label><input type="radio" name="bk-t-gender" value="no_preference" checked>Pas de préférence</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="bk-date">Date souhaitée <span class="bk-req">*</span></label>
+                                <input type="date" id="bk-date">
+                                <small id="bk-date-note" style="display:none;color:#c00;font-size:12px;margin-top:5px;display:none;">
+                                    <i class="fas fa-exclamation-circle"></i> La clinique est fermée le dimanche et le lundi.
+                                </small>
+                            </div>
+                            <div id="bk-err-2" class="bk-error" style="display:none"></div>
+                            <div class="bk-actions">
+                                <button type="button" class="bk-btn-back" onclick="bkBack(2)"><i class="fas fa-arrow-left"></i>&nbsp;Retour</button>
+                                <button type="button" class="bk-btn-next" onclick="bkNext(2)">Suivant&nbsp;<i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Time slot -->
+                        <div class="bk-panel" id="bk-panel-3" style="display:none">
+                            <div class="bk-panel-title">
+                                <div class="bk-num">3</div>
+                                <h3>Choisir un horaire</h3>
+                            </div>
+                            <div id="bk-slots-loading" class="bk-spinner-row" style="display:none">
+                                <div class="bk-spinner-sm"></div>Vérification des disponibilités…
+                            </div>
+                            <p class="bk-slots-hint">Créneaux disponibles pour la date choisie :</p>
+                            <div id="bk-slots-grid" class="bk-slots-grid"></div>
+                            <p id="bk-slots-none" style="display:none;color:var(--gray);font-size:14px;margin-top:12px;">
+                                <i class="fas fa-info-circle"></i> Aucun créneau disponible. Veuillez retourner et choisir une autre date.
+                            </p>
+                            <input type="hidden" id="bk-time">
+                            <div id="bk-err-3" class="bk-error" style="display:none;margin-top:12px;"></div>
+                            <div class="bk-actions">
+                                <button type="button" class="bk-btn-back" onclick="bkBack(3)"><i class="fas fa-arrow-left"></i>&nbsp;Retour</button>
+                                <button type="button" class="bk-btn-next" onclick="bkNext(3)">Suivant&nbsp;<i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Confirm -->
+                        <div class="bk-panel" id="bk-panel-4" style="display:none">
+                            <div class="bk-panel-title">
+                                <div class="bk-num">4</div>
+                                <h3>Confirmer votre demande</h3>
+                            </div>
+                            <div class="bk-summary" id="bk-summary"></div>
+                            <div class="form-group">
+                                <label for="bk-notes">Notes ou demandes spéciales <span class="bk-opt">(optionnel)</span></label>
+                                <textarea id="bk-notes" rows="3" placeholder="Allergies, blessures, demandes particulières…" maxlength="500"></textarea>
+                            </div>
+                            <div id="bk-error" class="bk-error" style="display:none"></div>
+                            <div class="bk-actions">
+                                <button type="button" class="bk-btn-back" onclick="bkBack(4)"><i class="fas fa-arrow-left"></i>&nbsp;Retour</button>
+                                <button type="submit" class="bk-btn-submit" id="bk-submit">
+                                    <i class="fas fa-paper-plane"></i>&nbsp;Envoyer la demande
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div><!-- /bk-form-wrapper -->
+
+                <!-- Success -->
+                <div id="bk-success" class="bk-state" style="display:none">
+                    <i class="fas fa-check-circle bk-success-icon"></i>
+                    <h3 style="color:var(--primary)">Demande envoyée !</h3>
+                    <p style="max-width:300px;margin:0;">Nous vous contacterons sous 24 heures pour confirmer votre rendez-vous.</p>
+                    <button class="bk-btn-next" style="margin-top:8px" onclick="bkReset()"><i class="fas fa-plus"></i>&nbsp;Nouvelle réservation</button>
+                </div>
+
+            </div><!-- /bk-form-panel -->
+        </div><!-- /bk-split -->
+
+        <script type="module">
+        const CF_BASE = "https://us-central1-bien-eter.cloudfunctions.net";
+        const SERVICE_LABELS = {
+            massage_1h:"Massage – 1 heure", massage_1_5h:"Massage – 1 heure 30",
+            acupuncture:"Acupuncture", consultation_acupuncture:"Consultation + Acupuncture",
+            moxibustion_cupping:"Moxibustion & Ventouses",
+        };
+        const GENDER_LABELS = {female:"Thérapeute femme", male:"Thérapeute homme", no_preference:"Pas de préférence"};
+        const SERVICE_DURATIONS = {massage_1h:60, massage_1_5h:90, acupuncture:60, consultation_acupuncture:90, moxibustion_cupping:60};
+        const DAY_NAMES = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
+        // JS getDay(): 0=Sunday, 1=Monday — clinic is closed on these days
+        const CLOSED_DAYS = [0, 1];
+
+        let bkTherapists = [];
+        let bkClinicOpen = 10;
+        let bkClinicClose = 20;
+
+        async function bkInit() {
+            try {
+                const res = await fetch(`${CF_BASE}/getPublicBookingData`);
+                const data = await res.json();
+                document.getElementById("bk-loading").style.display = "none";
+                if (!data.enableWebBooking) {
+                    document.getElementById("bk-disabled").style.display = "flex";
+                    return;
+                }
+                bkTherapists = data.therapists || [];
+                bkClinicOpen = Number(data.clinicOpenHour) || 10;
+                bkClinicClose = Number(data.clinicCloseHour) || 20;
+                setDateLimits(data.bookingWindowDays || 14);
+                document.getElementById("bk-form-wrapper").style.display = "block";
+            } catch(e) {
+                document.getElementById("bk-loading").innerHTML = '<p style="color:#c00">Erreur de chargement. Veuillez rafraîchir.</p>';
+                console.error(e);
+            }
+        }
+
+        function setDateLimits(windowDays) {
+            const today = new Date();
+            const max = new Date(today);
+            max.setDate(today.getDate() + windowDays);
+            const fmt = d => d.toISOString().split("T")[0];
+            const el = document.getElementById("bk-date");
+            if (el) { el.min = fmt(today); el.max = fmt(max); }
+        }
+
+        function isClosedDay(dateStr) {
+            if (!dateStr) return false;
+            return CLOSED_DAYS.includes(new Date(dateStr + "T12:00:00").getDay());
+        }
+
+        document.getElementById("bk-date").addEventListener("change", function() {
+            const note = document.getElementById("bk-date-note");
+            note.style.display = isClosedDay(this.value) ? "block" : "none";
+        });
+
+        function bkSetStep(s) {
+            for (let i = 1; i <= 4; i++) {
+                const panel = document.getElementById(`bk-panel-${i}`);
+                if (panel) panel.style.display = i === s ? "block" : "none";
+                const item = document.querySelector(`.bk-step-item[data-s="${i}"]`);
+                if (item) {
+                    item.classList.toggle("active", i === s);
+                    item.classList.toggle("done", i < s);
+                }
+            }
+            document.querySelectorAll(".bk-connector").forEach((c, idx) => c.classList.toggle("done", idx + 1 < s));
+        }
+
+        window.bkNext = function(from) {
+            if (from === 1) {
+                const name = document.getElementById("bk-name").value.trim();
+                const phone = document.getElementById("bk-phone").value.trim();
+                const email = document.getElementById("bk-email").value.trim();
+                const err1 = document.getElementById("bk-err-1");
+                if (!name || !phone || !email) { err1.textContent = "Veuillez remplir tous les champs obligatoires."; err1.style.display = "block"; return; }
+                if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) { err1.textContent = "Adresse courriel invalide."; err1.style.display = "block"; return; }
+                err1.style.display = "none";
+            }
+            if (from === 2) {
+                const service = document.getElementById("bk-service").value;
+                const date = document.getElementById("bk-date").value;
+                const err2 = document.getElementById("bk-err-2");
+                if (!service) { err2.textContent = "Veuillez sélectionner un service."; err2.style.display = "block"; return; }
+                if (!date) { err2.textContent = "Veuillez sélectionner une date."; err2.style.display = "block"; return; }
+                if (isClosedDay(date)) { err2.textContent = "La clinique est fermée le dimanche et le lundi. Veuillez choisir une autre date."; err2.style.display = "block"; return; }
+                err2.style.display = "none";
+                bkLoadSlots();
+            }
+            if (from === 3) {
+                const err3 = document.getElementById("bk-err-3");
+                if (!document.getElementById("bk-time").value) { err3.textContent = "Veuillez sélectionner un créneau horaire."; err3.style.display = "block"; return; }
+                err3.style.display = "none";
+                bkBuildSummary();
+            }
+            bkSetStep(from + 1);
+        };
+        window.bkBack = function(from) { bkSetStep(from - 1); };
+
+        // Compute available slots purely from therapist weeklyAvailability data
+        // already loaded at init — no additional network request needed.
+        function bkComputeSlots(date, service, genderPref) {
+            const duration = SERVICE_DURATIONS[service] || 60;
+            const jsDate = new Date(date + "T12:00:00");
+            const dow = jsDate.getDay();
+            if (dow === 0 || dow === 1) return []; // Closed Sunday & Monday
+            const dayName = DAY_NAMES[dow];
+            const isMassage = service.startsWith("massage");
+
+            // For massage with gender preference, filter by gender; otherwise use all
+            let pool = bkTherapists;
+            if (isMassage && genderPref && genderPref !== "no_preference") {
+                pool = pool.filter(t => t.gender === genderPref);
+            }
+
+            const slotSet = new Set();
+            pool.forEach(t => {
+                const avail = t.weeklyAvailability?.[dayName];
+                if (!avail || !avail.enabled) return;
+                (avail.slots || []).forEach(interval => {
+                    const [sh, sm] = interval.start.split(":").map(Number);
+                    const [eh, em] = interval.end.split(":").map(Number);
+                    let cur = sh * 60 + sm;
+                    const end = eh * 60 + em;
+                    while (cur + duration <= end) {
+                        const hh = Math.floor(cur / 60);
+                        const mm = cur % 60;
+                        slotSet.add(`${String(hh).padStart(2,"0")}:${String(mm).padStart(2,"0")}`);
+                        cur += 30;
+                    }
+                });
+            });
+
+            // Fallback to general clinic hours if no therapist schedules found
+            if (slotSet.size === 0) {
+                let t = bkClinicOpen * 60;
+                while (t + duration <= bkClinicClose * 60) {
+                    const hh = Math.floor(t / 60);
+                    const mm = t % 60;
+                    slotSet.add(`${String(hh).padStart(2,"0")}:${String(mm).padStart(2,"0")}`);
+                    t += 30;
+                }
+            }
+
+            return Array.from(slotSet).sort();
+        }
+
+        function bkLoadSlots() {
+            const service = document.getElementById("bk-service").value;
+            const date = document.getElementById("bk-date").value;
+            const gp = document.querySelector('input[name="bk-t-gender"]:checked')?.value || "no_preference";
+            document.getElementById("bk-time").value = "";
+            document.getElementById("bk-slots-grid").innerHTML = "";
+            const noneEl = document.getElementById("bk-slots-none");
+            noneEl.style.display = "none";
+            document.getElementById("bk-slots-loading").style.display = "flex";
+
+            // Use setTimeout to allow the loading indicator to render first
+            setTimeout(() => {
+                try {
+                    const slots = bkComputeSlots(date, service, gp);
+                    if (slots.length === 0) {
+                        noneEl.textContent = "Aucun créneau disponible pour cette date.";
+                        noneEl.style.display = "block";
+                    } else {
+                        const grid = document.getElementById("bk-slots-grid");
+                        slots.forEach(time => {
+                            const btn = document.createElement("button");
+                            btn.type = "button"; btn.className = "bk-slot";
+                            const [hh, mm] = time.split(":").map(Number);
+                            const ampm = hh >= 12 ? "PM" : "AM";
+                            btn.textContent = `${hh%12||12}:${String(mm).padStart(2,"0")} ${ampm}`;
+                            btn.addEventListener("click", () => {
+                                document.querySelectorAll(".bk-slot").forEach(b => b.classList.remove("selected"));
+                                btn.classList.add("selected");
+                                document.getElementById("bk-time").value = time;
+                            });
+                            grid.appendChild(btn);
+                        });
+                    }
+                } catch(e) {
+                    console.error("Slots error:", e);
+                    noneEl.textContent = "Erreur de chargement. Veuillez réessayer.";
+                    noneEl.style.display = "block";
+                }
+                document.getElementById("bk-slots-loading").style.display = "none";
+            }, 200);
+        }
+
+        function bkBuildSummary() {
+            const service = document.getElementById("bk-service").value;
+            const time = document.getElementById("bk-time").value;
+            const [hh, mm] = time.split(":").map(Number);
+            const timeStr = `${hh%12||12}:${String(mm).padStart(2,"0")} ${hh>=12?"PM":"AM"}`;
+            const isMassage = service.startsWith("massage");
+            const gp = isMassage ? (document.querySelector('input[name="bk-t-gender"]:checked')?.value || "no_preference") : null;
+            const rows = [
+                ["Nom", document.getElementById("bk-name").value.trim()],
+                ["Téléphone", document.getElementById("bk-phone").value.trim()],
+                ["Courriel", document.getElementById("bk-email").value.trim()],
+                ["Service", SERVICE_LABELS[service] || service],
+                ["Date", document.getElementById("bk-date").value],
+                ["Heure", timeStr],
+            ];
+            if (gp) rows.push(["Thérapeute", GENDER_LABELS[gp] || gp]);
+            document.getElementById("bk-summary").innerHTML = rows.map(([l,v]) =>
+                `<div class="bk-summary-row"><span class="s-label">${l}</span><span class="s-value">${v}</span></div>`
+            ).join("");
+        }
+
+        document.getElementById("bk-service").addEventListener("change", function() {
+            document.getElementById("bk-therapist-gender-group").style.display = this.value.startsWith("massage") ? "block" : "none";
+        });
+
+        document.getElementById("booking-form").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const errEl = document.getElementById("bk-error");
+            errEl.style.display = "none";
+            const submitBtn = document.getElementById("bk-submit");
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp;Envoi en cours…';
+            const isMassage = document.getElementById("bk-service").value.startsWith("massage");
+            const payload = {
+                clientName: document.getElementById("bk-name").value.trim(),
+                clientPhone: document.getElementById("bk-phone").value.trim(),
+                clientEmail: document.getElementById("bk-email").value.trim(),
+                clientGender: document.querySelector('input[name="bk-client-gender"]:checked')?.value || "other",
+                serviceType: document.getElementById("bk-service").value,
+                preferredTherapistGender: isMassage ? (document.querySelector('input[name="bk-t-gender"]:checked')?.value || "no_preference") : "no_preference",
+                preferredTherapistId: null,
+                preferredDate: document.getElementById("bk-date").value,
+                preferredTime: document.getElementById("bk-time").value,
+                alternateDate: null,
+                notes: document.getElementById("bk-notes").value.trim(),
+            };
+            try {
+                const res = await fetch(`${CF_BASE}/submitBookingRequest`, {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+                const data = await res.json();
+                if (res.ok && data.success) {
+                    document.getElementById("bk-form-wrapper").style.display = "none";
+                    document.getElementById("bk-success").style.display = "flex";
+                } else {
+                    errEl.textContent = data.error || "Une erreur s'est produite. Veuillez réessayer.";
+                    errEl.style.display = "block";
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i>&nbsp;Envoyer la demande';
+                }
+            } catch(err) {
+                errEl.textContent = "Erreur réseau. Veuillez réessayer.";
+                errEl.style.display = "block";
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i>&nbsp;Envoyer la demande';
+            }
+        });
+
+        window.bkReset = function() {
+            document.getElementById("bk-success").style.display = "none";
+            document.getElementById("bk-form-wrapper").style.display = "block";
+            document.getElementById("booking-form").reset();
+            document.getElementById("bk-therapist-gender-group").style.display = "none";
+            document.getElementById("bk-date-note").style.display = "none";
+            bkSetStep(1);
+        };
+
+        bkInit();
+        </script>
+    </section>
+
+    <!-- ============================================================
+         CONTACT SECTION — info + map + email form
+         ============================================================ -->
     <section class="contact" id="contact">
         <div class="container">
             <h2 class="section-title">Contactez-Nous</h2>
@@ -1077,38 +1766,26 @@
                     <h3>Nos Coordonnées</h3>
                     <div class="contact-details">
                         <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <p>3-8500Taschereau Blvd, Brossard, QC, J4X 2T4</p>
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <p>3-8500 Taschereau Blvd, Brossard, QC, J4X 2T4</p>
                         </div>
                         <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <p>(450)486-6677</p>
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <p><a href="tel:4504866677" style="color:inherit">(450) 486-6677</a></p>
                         </div>
                         <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <p>info@bienetreclinique.ca</p>
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <p><a href="mailto:info@bienetreclinique.ca" style="color:inherit">info@bienetreclinique.ca</a></p>
                         </div>
                         <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
+                            <div class="contact-icon"><i class="fas fa-clock"></i></div>
                             <p>
-                                <strong>Nouveaux Horaires:</strong><br>
-                                Mardi: 10h00 - 20h00<br>
-                                Mercredi: 10h00 - 20h00<br>
-                                Jeudi: 10h00 - 20h00<br>
-                                Vendredi: 10h00 - 20h00<br>
-                                Samedi: 10h00 - 20h00<br>
-                                Dimanche et Lundi: Fermé
+                                <strong>Horaires :</strong><br>
+                                Mar – Ven : 10h00 – 20h00<br>
+                                Samedi : 10h00 – 20h00<br>
+                                Dim &amp; Lun : Fermé
                             </p>
                         </div>
-
                     </div>
                     <div class="map-container">
                         <iframe
@@ -1119,40 +1796,42 @@
                     </div>
                 </div>
 
+                <!-- Email contact form -->
                 <div class="contact-form">
-                    <!-- 原有联系表单 -->
+                    <h3 style="margin-bottom:18px;color:var(--dark);">
+                        <i class="fas fa-envelope" style="color:var(--primary);margin-right:8px;"></i>
+                        Nous écrire
+                    </h3>
                     <form action="mailto:info@bienetreclinique.ca" method="post" enctype="text/plain">
                         <div class="form-group">
-                            <label for="name">Nom Complet</label>
-                            <input type="text" id="name" name="name" required>
+                            <label for="ct-name">Nom Complet</label>
+                            <input type="text" id="ct-name" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
+                            <label for="ct-email">Email</label>
+                            <input type="email" id="ct-email" name="email" required>
                         </div>
                         <div class="form-group">
-                            <label for="phone">Téléphone</label>
-                            <input type="tel" id="phone" name="phone" required>
+                            <label for="ct-phone">Téléphone</label>
+                            <input type="tel" id="ct-phone" name="phone">
                         </div>
                         <div class="form-group">
-                            <label for="service">Service Demandé</label>
-                            <select id="service" name="service">
+                            <label for="ct-service">Service Demandé</label>
+                            <select id="ct-service" name="service">
                                 <option value="acupuncture">Acupuncture</option>
                                 <option value="massage">Massothérapie</option>
                                 <option value="ventouses">Ventouses</option>
-                                <!-- <option value="osteopathie">Ostéopathie & Thérapie Manuelle</option> -->
                                 <option value="herbaliste">Médecine Herbaliste</option>
                                 <option value="consultation">Consultation</option>
                                 <option value="autre">Autre</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" required></textarea>
+                            <label for="ct-message">Message</label>
+                            <textarea id="ct-message" name="message" required rows="5"></textarea>
                         </div>
-                        <button type="submit" class="btn">Envoyer la Demande</button>
+                        <button type="submit" class="btn">Envoyer le message</button>
                     </form>
-
                 </div>
             </div>
         </div>
@@ -1161,39 +1840,6 @@
     <!-- 添加Calendly JS -->
     <script type="text/javascript" src="https://c.insightdns.com/$/Start/?ID=8A21401D97A6629C11521444B53D8591"
         async></script>
-
-    <style>
-        /* 新增样式 */
-        .booking-cta {
-            text-align: center;
-            margin: 40px 0;
-        }
-
-        .btn-large {
-            padding: 18px 45px;
-            font-size: 18px;
-            border-radius: 50px;
-            box-shadow: 0 5px 15px rgba(194, 92, 61, 0.3);
-        }
-
-        .booking-hint {
-            margin-top: 10px;
-            font-size: 14px;
-            color: var(--gray);
-        }
-
-        .booking-alternative {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px dashed #ddd;
-        }
-
-        .booking-alternative p {
-            margin-bottom: 15px;
-            color: var(--gray);
-        }
-    </style>
 
     <!-- Footer -->
     <footer>
@@ -1216,6 +1862,7 @@
                         <li><a href="#about">Notre Philosophie</a></li>
                         <li><a href="#career">Carrières</a></li>
                         <!-- <li><a href="#testimonials">Témoignages</a></li> -->
+                        <li><a href="#book">Réserver</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
