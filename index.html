@@ -180,15 +180,15 @@
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- Google tag (gtag.js) -->
+        
+        <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-C314HPN1Q6"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-C314HPN1Q6');
-    </script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-C314HPN1Q6');
+        </script>
         
         
     <style>
@@ -1690,11 +1690,15 @@
                                 <label for="bk-service">Service souhaité <span class="bk-req">*</span></label>
                                 <select id="bk-service">
                                     <option value="">— Sélectionnez —</option>
-                                    <option value="massage_1h">Massage – 1 heure</option>
-                                    <option value="massage_1_5h">Massage – 1 heure 30</option>
+                                    <option value="massage_60">Massage - 60mins</option>
+                                    <option value="massage_90">Massage - 90mins</option>
                                     <option value="acupuncture">Acupuncture</option>
-                                    <option value="consultation_acupuncture">Consultation + Acupuncture</option>
-                                    <option value="moxibustion_cupping">Moxibustion &amp; Ventouses</option>
+                                    <option value="consultation_acupuncture">Consultation+ACUPUNCTURE</option>
+                                    <option value="massage_facial">Massage facial</option>
+                                    <option value="reflexology">REFLEXOLOGY</option>
+                                    <option value="moxibustion">MOXIBUSTION</option>
+                                    <option value="ventouses">VENTOUSES</option>
+                                    <option value="gua_sha">GHA SHA</option>
                                 </select>
                             </div>
                             <div class="form-group" id="bk-therapist-gender-group" style="display:none">
@@ -1778,12 +1782,21 @@
         <script type="module">
         const CF_BASE = "https://us-central1-bien-eter.cloudfunctions.net";
         const SERVICE_LABELS = {
-            massage_1h:"Massage – 1 heure", massage_1_5h:"Massage – 1 heure 30",
-            acupuncture:"Acupuncture", consultation_acupuncture:"Consultation + Acupuncture",
-            moxibustion_cupping:"Moxibustion & Ventouses",
+            massage_60: "Massage - 60mins",
+            massage_90: "Massage - 90mins",
+            acupuncture: "Acupuncture",
+            consultation_acupuncture: "Consultation+ACUPUNCTURE",
+            massage_facial: "Massage facial",
+            reflexology: "REFLEXOLOGY",
+            moxibustion: "MOXIBUSTION",
+            ventouses: "VENTOUSES",
+            gua_sha: "GHA SHA",
         };
         const GENDER_LABELS = {female:"Thérapeute femme", male:"Thérapeute homme", no_preference:"Pas de préférence"};
-        const SERVICE_DURATIONS = {massage_1h:60, massage_1_5h:90, acupuncture:60, consultation_acupuncture:90, moxibustion_cupping:60};
+        const SERVICE_DURATIONS = {
+            massage_60: 60, massage_90: 90, acupuncture: 60, consultation_acupuncture: 90,
+            massage_facial: 60, reflexology: 60, moxibustion: 60, ventouses: 60, gua_sha: 60,
+        };
         const DAY_NAMES = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
         // JS getDay(): 0=Sunday, 1=Monday — clinic is closed on these days
         const CLOSED_DAYS = [0, 1];
@@ -1898,11 +1911,11 @@
             const dow = jsDate.getDay();
             if (dow === 0 || dow === 1) return []; // Closed Sunday & Monday
             const dayName = DAY_NAMES[dow];
-            const isMassage = service.startsWith("massage");
+            const isMassageSlot = service === "massage_60" || service === "massage_90";
 
             // For massage with gender preference, filter by gender; otherwise use all
             let pool = bkTherapists;
-            if (isMassage && genderPref && genderPref !== "no_preference") {
+            if (isMassageSlot && genderPref && genderPref !== "no_preference") {
                 pool = pool.filter(t => t.gender === genderPref);
             }
 
@@ -1985,8 +1998,8 @@
             const time = document.getElementById("bk-time").value;
             const [hh, mm] = time.split(":").map(Number);
             const timeStr = `${hh%12||12}:${String(mm).padStart(2,"0")} ${hh>=12?"PM":"AM"}`;
-            const isMassage = service.startsWith("massage");
-            const gp = isMassage ? (document.querySelector('input[name="bk-t-gender"]:checked')?.value || "no_preference") : null;
+            const isMassageSummary = service === "massage_60" || service === "massage_90";
+            const gp = isMassageSummary ? (document.querySelector('input[name="bk-t-gender"]:checked')?.value || "no_preference") : null;
             const rows = [
                 ["Nom", document.getElementById("bk-name").value.trim()],
                 ["Téléphone", document.getElementById("bk-phone").value.trim()],
@@ -2002,7 +2015,9 @@
         }
 
         document.getElementById("bk-service").addEventListener("change", function() {
-            document.getElementById("bk-therapist-gender-group").style.display = this.value.startsWith("massage") ? "block" : "none";
+            const v = this.value;
+            document.getElementById("bk-therapist-gender-group").style.display =
+                (v === "massage_60" || v === "massage_90") ? "block" : "none";
         });
 
         document.getElementById("booking-form").addEventListener("submit", async function(e) {
@@ -2012,7 +2027,8 @@
             const submitBtn = document.getElementById("bk-submit");
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp;Envoi en cours…';
-            const isMassage = document.getElementById("bk-service").value.startsWith("massage");
+            const svc = document.getElementById("bk-service").value;
+            const isMassage = svc === "massage_60" || svc === "massage_90";
             const payload = {
                 clientName: document.getElementById("bk-name").value.trim(),
                 clientPhone: document.getElementById("bk-phone").value.trim(),
