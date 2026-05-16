@@ -1,0 +1,8 @@
+# robots.txt — Clinique Bien-Être Acupuncture et Massage
+# https://bienetreclinique.ca/
+
+User-agent: *
+Allow: /
+
+# Emplacement du plan du site (sitemap)
+Sitemap: https://bienetreclinique.ca/sitemap.xml
