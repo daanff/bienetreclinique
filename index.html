@@ -800,6 +800,75 @@
         </div>
     </div>
 
+    <!-- ── Politique de confidentialité — Loi 25 ── -->
+    <div class="modal-overlay" id="privacyModal" onclick="if(event.target===this) closePrivacyModal()">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closePrivacyModal()">&times;</button>
+            <div class="modal-header">
+                <h3><i class="fas fa-shield-alt"></i> Politique de confidentialité</h3>
+                <p style="font-size:13px;color:#777;margin-top:4px;">Conformément à la Loi 25 — Loi modernisant des dispositions législatives en matière de protection des renseignements personnels (Québec)</p>
+            </div>
+
+            <div class="privacy-section">
+                <h4>Renseignements collectés</h4>
+                <p>Dans le cadre de votre demande de rendez-vous en ligne, nous collectons :</p>
+                <ul>
+                    <li>Nom complet</li>
+                    <li>Numéro de téléphone</li>
+                    <li>Adresse courriel</li>
+                    <li>Genre (facultatif)</li>
+                    <li>Détails du rendez-vous souhaité (service, date, heure, notes)</li>
+                </ul>
+            </div>
+
+            <div class="privacy-section">
+                <h4>Fins de la collecte</h4>
+                <p>Ces renseignements sont collectés exclusivement pour :</p>
+                <ul>
+                    <li>Traiter et confirmer votre demande de rendez-vous</li>
+                    <li>Vous contacter pour la prise en charge et le suivi de votre rendez-vous</li>
+                    <li>Vous envoyer des rappels liés à votre rendez-vous</li>
+                </ul>
+                <p style="margin-top:8px">Vos renseignements ne sont pas utilisés à des fins de démarchage commercial sans votre consentement explicite.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h4>Accès et communication</h4>
+                <p>Vos renseignements sont accessibles uniquement au personnel autorisé de la Clinique Bien-Être. Ils ne sont ni vendus, ni loués, ni communiqués à des tiers, sauf obligation légale.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h4>Durée de conservation</h4>
+                <p>Vos renseignements sont conservés pendant la durée nécessaire à la gestion de votre dossier et conformément aux exigences légales applicables en matière de santé au Québec.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h4>Vos droits (art. 27 et suiv. de la Loi 25)</h4>
+                <p>Vous avez le droit :</p>
+                <ul>
+                    <li>D'accéder à vos renseignements personnels détenus par la clinique</li>
+                    <li>De faire rectifier tout renseignement inexact ou incomplet</li>
+                    <li>De demander la suppression de vos renseignements (sous réserve des obligations légales)</li>
+                    <li>De retirer votre consentement à tout moment</li>
+                </ul>
+            </div>
+
+            <div class="privacy-section">
+                <h4>Responsable de la protection des renseignements personnels</h4>
+                <p>Pour exercer vos droits ou pour toute question relative à la protection de vos renseignements personnels :</p>
+                <ul>
+                    <li>📧 <a href="mailto:bienetreclinique@gmail.com">bienetreclinique@gmail.com</a></li>
+                    <li>📞 (514) 316-9888</li>
+                    <li>📍 Clinique Bien-Être Acupuncture et Massage, Montréal, QC</li>
+                </ul>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn" onclick="closePrivacyModal()">Fermer</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -1194,6 +1263,37 @@
         .bk-btn-submit:hover { opacity:.88; }
         .bk-btn-submit:disabled { opacity:.55; cursor:not-allowed; }
 
+        /* Consent checkbox (Law 25 / Loi 25) */
+        .bk-consent-group {
+            display:flex; align-items:flex-start; gap:10px;
+            background:#f5f7fa; border:1px solid #dde0e6;
+            border-radius:8px; padding:12px 14px; margin-bottom:16px;
+        }
+        .bk-consent-group input[type="checkbox"] {
+            width:18px; height:18px; min-width:18px; margin-top:2px;
+            accent-color:var(--primary); cursor:pointer;
+        }
+        .bk-consent-group .bk-consent-text {
+            font-size:13px; color:#555; line-height:1.55;
+        }
+        .bk-consent-group .bk-consent-text a {
+            color:var(--primary); text-decoration:underline; cursor:pointer;
+        }
+
+        /* Privacy policy modal */
+        #privacyModal { z-index:9000; }
+        #privacyModal .modal-content { max-width:680px; max-height:85vh; overflow-y:auto; }
+        .privacy-section { margin-bottom:18px; }
+        .privacy-section h4 {
+            font-size:14px; font-weight:700; color:var(--dark);
+            margin-bottom:6px; border-bottom:1px solid #eee; padding-bottom:4px;
+        }
+        .privacy-section p, .privacy-section ul {
+            font-size:13px; color:#555; line-height:1.6; margin:0;
+        }
+        .privacy-section ul { padding-left:18px; }
+        .privacy-section li { margin-bottom:4px; }
+
         /* Time slots */
         .bk-slots-hint { color:var(--gray); font-size:13px; margin-bottom:10px; }
         .bk-slots-grid { display:flex; flex-wrap:wrap; gap:10px; margin-top:4px; }
@@ -1385,6 +1485,14 @@
                                     <label><input type="radio" name="bk-client-gender" value="other" checked> Autre / Ne pas préciser</label>
                                 </div>
                             </div>
+                            <!-- Loi 25 — consentement éclairé -->
+                            <div class="bk-consent-group">
+                                <input type="checkbox" id="bk-consent">
+                                <span class="bk-consent-text">
+                                    J'autorise la Clinique Bien-Être à collecter mes renseignements personnels (nom, téléphone, courriel) dans le but exclusif de gérer ma demande de rendez-vous et de me contacter à cet effet.
+                                    <a href="#" onclick="showPrivacyModal(); return false;">Politique de confidentialité &rsaquo;</a>
+                                </span>
+                            </div>
                             <div id="bk-err-1" class="bk-error" style="display:none"></div>
                             <div class="bk-actions">
                                 <button type="button" class="bk-btn-next" onclick="bkNext(1)">Suivant&nbsp;<i class="fas fa-arrow-right"></i></button>
@@ -1555,14 +1663,30 @@
             document.querySelectorAll(".bk-connector").forEach((c, idx) => c.classList.toggle("done", idx + 1 < s));
         }
 
+        window.showPrivacyModal = function() {
+            const m = document.getElementById("privacyModal");
+            m.classList.add("active");
+            document.body.style.overflow = "hidden";
+        };
+        window.closePrivacyModal = function() {
+            const m = document.getElementById("privacyModal");
+            m.classList.remove("active");
+            document.body.style.overflow = "auto";
+        };
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") closePrivacyModal();
+        });
+
         window.bkNext = function(from) {
             if (from === 1) {
                 const name = document.getElementById("bk-name").value.trim();
                 const phone = document.getElementById("bk-phone").value.trim();
                 const email = document.getElementById("bk-email").value.trim();
+                const consent = document.getElementById("bk-consent").checked;
                 const err1 = document.getElementById("bk-err-1");
                 if (!name || !phone || !email) { err1.textContent = "Veuillez remplir tous les champs obligatoires."; err1.style.display = "block"; return; }
                 if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) { err1.textContent = "Adresse courriel invalide."; err1.style.display = "block"; return; }
+                if (!consent) { err1.textContent = "Veuillez accepter la politique de confidentialité pour continuer."; err1.style.display = "block"; return; }
                 err1.style.display = "none";
             }
             if (from === 2) {
@@ -1745,6 +1869,7 @@
             document.getElementById("bk-success").style.display = "none";
             document.getElementById("bk-form-wrapper").style.display = "block";
             document.getElementById("booking-form").reset();
+            document.getElementById("bk-consent").checked = false;
             document.getElementById("bk-therapist-gender-group").style.display = "none";
             document.getElementById("bk-date-note").style.display = "none";
             bkSetStep(1);
