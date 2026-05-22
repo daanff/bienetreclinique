@@ -2458,23 +2458,11 @@
             const modal = document.getElementById('hoursModal');
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
-
-            const expiryDate = new Date();
-            expiryDate.setDate(expiryDate.getDate() + 14);
-            document.cookie = `promoAnniversary2026=true; expires=${expiryDate.toUTCString()}; path=/`;
         }
 
-        function hasSeenModal() {
-            return document.cookie.split(';').some(cookie =>
-                cookie.trim().startsWith('promoAnniversary2026=true')
-            );
-        }
-
-        // Show modal on page load if user hasn't seen it
+        // Show promo on every visit
         window.addEventListener('load', () => {
-            if (!hasSeenModal()) {
-                setTimeout(showModal, 1000); // Show after 1 second
-            }
+            setTimeout(showModal, 1000);
         });
 
         // Close modal when clicking outside
