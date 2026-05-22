@@ -1951,46 +1951,62 @@
             return Array.from(slotSet).sort();
         }
 
-        function bkLoadSlots() {
+        async function bkLoadSlots() {
             const service = document.getElementById("bk-service").value;
             const date = document.getElementById("bk-date").value;
-            const gp = document.querySelector('input[name="bk-t-gender"]:checked')?.value || "no_preference";
+            const isMassage = service === "massage_60" || service === "massage_90";
+            const gp = isMassage
+                ? (document.querySelector('input[name="bk-t-gender"]:checked')?.value || "no_preference")
+                : "no_preference";
             document.getElementById("bk-time").value = "";
             document.getElementById("bk-slots-grid").innerHTML = "";
             const noneEl = document.getElementById("bk-slots-none");
             noneEl.style.display = "none";
             document.getElementById("bk-slots-loading").style.display = "flex";
 
-            // Use setTimeout to allow the loading indicator to render first
-            setTimeout(() => {
-                try {
-                    const slots = bkComputeSlots(date, service, gp);
-                    if (slots.length === 0) {
-                        noneEl.textContent = "Aucun créneau disponible pour cette date.";
-                        noneEl.style.display = "block";
-                    } else {
-                        const grid = document.getElementById("bk-slots-grid");
-                        slots.forEach(time => {
-                            const btn = document.createElement("button");
-                            btn.type = "button"; btn.className = "bk-slot";
-                            const [hh, mm] = time.split(":").map(Number);
-                            const ampm = hh >= 12 ? "PM" : "AM";
-                            btn.textContent = `${hh%12||12}:${String(mm).padStart(2,"0")} ${ampm}`;
-                            btn.addEventListener("click", () => {
-                                document.querySelectorAll(".bk-slot").forEach(b => b.classList.remove("selected"));
-                                btn.classList.add("selected");
-                                document.getElementById("bk-time").value = time;
-                            });
-                            grid.appendChild(btn);
-                        });
-                    }
-                } catch(e) {
-                    console.error("Slots error:", e);
-                    noneEl.textContent = "Erreur de chargement. Veuillez réessayer.";
+            try {
+                const params = new URLSearchParams({
+                    date,
+                    serviceType: service,
+                    therapistGender: gp,
+                    _: String(Date.now()),
+                });
+                const res = await fetch(`${CF_BASE}/getAvailableSlots?${params}`);
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok || !Array.isArray(data.slots)) {
+                    noneEl.textContent =
+                        "Impossible de charger les créneaux (vérification des conflits). Veuillez rafraîchir la page ou nous appeler.";
                     noneEl.style.display = "block";
+                    return;
                 }
-                document.getElementById("bk-slots-loading").style.display = "none";
-            }, 200);
+                const slots = data.slots;
+                if (slots.length === 0) {
+                    noneEl.textContent = data.closed
+                        ? "La clinique est fermée ce jour-là."
+                        : "Aucun créneau disponible pour cette date.";
+                    noneEl.style.display = "block";
+                } else {
+                    const grid = document.getElementById("bk-slots-grid");
+                    slots.forEach(time => {
+                        const btn = document.createElement("button");
+                        btn.type = "button"; btn.className = "bk-slot";
+                        const [hh, mm] = time.split(":").map(Number);
+                        const ampm = hh >= 12 ? "PM" : "AM";
+                        btn.textContent = `${hh%12||12}:${String(mm).padStart(2,"0")} ${ampm}`;
+                        btn.addEventListener("click", () => {
+                            document.querySelectorAll(".bk-slot").forEach(b => b.classList.remove("selected"));
+                            btn.classList.add("selected");
+                            document.getElementById("bk-time").value = time;
+                        });
+                        grid.appendChild(btn);
+                    });
+                }
+            } catch(e) {
+                console.error("Slots error:", e);
+                noneEl.textContent = "Erreur de chargement. Veuillez réessayer.";
+                noneEl.style.display = "block";
+            }
+            document.getElementById("bk-slots-loading").style.display = "none";
         }
 
         function bkBuildSummary() {
@@ -2018,6 +2034,13 @@
             const v = this.value;
             document.getElementById("bk-therapist-gender-group").style.display =
                 (v === "massage_60" || v === "massage_90") ? "block" : "none";
+        });
+
+        document.querySelectorAll('input[name="bk-t-gender"]').forEach((el) => {
+            el.addEventListener("change", () => {
+                const panel3 = document.getElementById("bk-panel-3");
+                if (panel3 && panel3.style.display !== "none") bkLoadSlots();
+            });
         });
 
         document.getElementById("booking-form").addEventListener("submit", async function(e) {
