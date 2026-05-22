@@ -778,57 +778,235 @@
             font-size: 24px;
         }
 
-        .modal-header .announcement-badge {
-            background-color: var(--secondary);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
+        /* Anniversary promo modal */
+        #hoursModal .modal-content {
+            max-width: 560px;
+            padding: 0;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        #hoursModal .modal-close {
+            top: 14px;
+            right: 16px;
+            z-index: 2;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 22px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #hoursModal .modal-close:hover {
+            background: rgba(255, 255, 255, 0.35);
+            color: #fff;
+        }
+
+        .promo-modal-hero {
+            background: linear-gradient(135deg, #2A5C4A 0%, #3d7a64 55%, #2A5C4A 100%);
+            color: #fff;
+            text-align: center;
+            padding: 36px 28px 32px;
+            position: relative;
+        }
+
+        .promo-modal-hero::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 24px;
+            background: #fff;
+            border-radius: 24px 24px 0 0;
+        }
+
+        .promo-anniv-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 14px;
         }
 
-        .hours-section {
-            margin: 25px 0;
+        .promo-anniv-badge i {
+            color: #f4d58d;
         }
 
-        .hours-section h4 {
+        .promo-modal-hero h3 {
+            color: #fff;
+            font-size: 26px;
+            line-height: 1.25;
+            margin: 0 0 8px;
+            font-weight: 700;
+        }
+
+        .promo-modal-hero .promo-subtitle {
+            font-size: 15px;
+            opacity: 0.92;
+            font-weight: 400;
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+        }
+
+        .promo-modal-body {
+            padding: 8px 28px 28px;
+        }
+
+        .promo-offers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .promo-offer-card {
+            background: var(--light);
+            border: 1px solid rgba(42, 92, 74, 0.12);
+            border-radius: 12px;
+            padding: 18px 14px;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .promo-offer-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(42, 92, 74, 0.12);
+        }
+
+        .promo-offer-card.featured {
+            border-color: var(--secondary);
+            background: linear-gradient(180deg, #fff 0%, #fdf6f3 100%);
+        }
+
+        .promo-offer-duration {
+            font-size: 13px;
+            font-weight: 700;
             color: var(--primary);
-            margin-bottom: 15px;
-            font-size: 18px;
-            border-bottom: 2px solid var(--light);
-            padding-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 6px;
         }
 
-        .hours-list {
+        .promo-offer-card i {
+            font-size: 22px;
+            color: var(--secondary);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .promo-offer-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--secondary);
+            line-height: 1;
+        }
+
+        .promo-offer-price span {
+            font-size: 18px;
+            vertical-align: super;
+        }
+
+        .promo-offer-label {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 6px;
+        }
+
+        .promo-clinic-name {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            color: var(--primary);
+            margin-bottom: 16px;
+            line-height: 1.35;
+        }
+
+        .promo-contact-list {
             list-style: none;
             padding: 0;
+            margin: 0 0 22px;
+            border-top: 1px solid #eee;
+            padding-top: 16px;
         }
 
-        .hours-list li {
+        .promo-contact-list li {
             display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .hours-list li:last-child {
-            border-bottom: none;
-        }
-
-        .day {
-            font-weight: 600;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 9px 0;
+            font-size: 14px;
             color: var(--dark);
         }
 
-        .time {
-            color: var(--gray);
+        .promo-contact-list li i {
+            width: 20px;
+            text-align: center;
+            color: var(--primary);
+            margin-top: 2px;
+            flex-shrink: 0;
         }
 
-        .closed {
-            color: var(--secondary);
+        .promo-contact-list a {
+            color: var(--primary);
             font-weight: 600;
+        }
+
+        .promo-contact-list a:hover {
+            color: var(--secondary);
+        }
+
+        .promo-modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+        }
+
+        .promo-modal-actions .btn {
+            width: 100%;
+        }
+
+        .promo-modal-actions .btn-outline-promo {
+            display: inline-block;
+            padding: 11px 24px;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .promo-modal-actions .btn-outline-promo:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .promo-fine-print {
+            text-align: center;
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 14px;
+            line-height: 1.5;
         }
 
         .modal-footer {
@@ -920,6 +1098,22 @@
                 margin: 20px;
             }
 
+            #hoursModal .modal-content {
+                padding: 0;
+            }
+
+            .promo-modal-hero h3 {
+                font-size: 22px;
+            }
+
+            .promo-offers {
+                grid-template-columns: 1fr;
+            }
+
+            .promo-offer-price {
+                font-size: 28px;
+            }
+
             .modal-header h3 {
                 font-size: 20px;
             }
@@ -928,53 +1122,63 @@
 </head>
 
 <body>
-    <!-- Hours Change Modal -->
+    <!-- 1st Anniversary Promotion Modal -->
     <div class="modal-overlay" id="hoursModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
-            <div class="modal-header">
-                <div class="announcement-badge">Important</div>
-                <h3><i class="fas fa-clock"></i> Changement d'Horaires</h3>
+        <div class="modal-content" role="dialog" aria-labelledby="promoModalTitle" aria-modal="true">
+            <button class="modal-close" onclick="closeModal()" aria-label="Fermer">&times;</button>
+            <div class="promo-modal-hero">
+                <div class="promo-anniv-badge">
+                    <i class="fas fa-star"></i>
+                    <span>1<sup>er</sup> anniversaire</span>
+                </div>
+                <h3 id="promoModalTitle">Promotion du premier anniversaire</h3>
+                <p class="promo-subtitle">Massothérapie — offre spéciale pour célébrer notre première année</p>
             </div>
 
-            <div class="hours-section">
-                <h4><i class="fas fa-calendar-alt"></i> Nouveaux Horaires d'Ouverture</h4>
-                <ul class="hours-list">
+            <div class="promo-modal-body">
+                <div class="promo-offers">
+                    <div class="promo-offer-card">
+                        <i class="fas fa-spa"></i>
+                        <div class="promo-offer-duration">Massage</div>
+                        <div class="promo-offer-price"><span>$</span>90</div>
+                        <div class="promo-offer-label">60 minutes</div>
+                    </div>
+                    <div class="promo-offer-card featured">
+                        <i class="fas fa-leaf"></i>
+                        <div class="promo-offer-duration">Massage</div>
+                        <div class="promo-offer-price"><span>$</span>135</div>
+                        <div class="promo-offer-label">90 minutes</div>
+                    </div>
+                </div>
+
+                <p class="promo-clinic-name">Clinique Bien-Être<br>Acupuncture et Massage</p>
+
+                <ul class="promo-contact-list">
                     <li>
-                        <span class="day">Lundi</span>
-                        <span class="time closed">Fermé</span>
+                        <i class="fas fa-phone-alt"></i>
+                        <span><a href="tel:4504866677">(450) 486-6677</a></span>
                     </li>
                     <li>
-                        <span class="day">Mardi</span>
-                        <span class="time">10h00 - 20h00</span>
+                        <i class="fas fa-envelope"></i>
+                        <span><a href="mailto:info@bienetreclinique.ca">info@bienetreclinique.ca</a></span>
                     </li>
                     <li>
-                        <span class="day">Mercredi</span>
-                        <span class="time">10h00 - 20h00</span>
+                        <i class="fas fa-globe"></i>
+                        <span><a href="https://bienetreclinique.ca" target="_blank" rel="noopener">bienetreclinique.ca</a></span>
                     </li>
                     <li>
-                        <span class="day">Jeudi</span>
-                        <span class="time">10h00 - 20h00</span>
-                    </li>
-                    <li>
-                        <span class="day">Vendredi</span>
-                        <span class="time">10h00 - 20h00</span>
-                    </li>
-                    <li>
-                        <span class="day">Samedi</span>
-                        <span class="time">10h00 - 20h00</span>
-                    </li>
-                    <li>
-                        <span class="day">Dimanche</span>
-                        <span class="time closed">Fermé</span>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>3-8500 Taschereau Blvd, Brossard, QC, J4X 2T4</span>
                     </li>
                 </ul>
-            </div>
 
-            <div class="modal-footer">
-                <p><i class="fas fa-info-circle"></i> Ces nouveaux horaires sont effectifs immédiatement. Merci de votre
-                    compréhension.</p>
-                <button class="btn" onclick="closeModal()">J'ai compris</button>
+                <div class="promo-modal-actions">
+                    <a href="#book" class="btn" onclick="closeModal()">
+                        <i class="fas fa-calendar-check"></i>&nbsp; Réserver en ligne
+                    </a>
+                    <button type="button" class="btn-outline-promo" onclick="closeModal()">Fermer</button>
+                </div>
+                <p class="promo-fine-print">Offre anniversaire — massage 60 min à 90&nbsp;$ et 90 min à 135&nbsp;$. Merci de votre confiance.</p>
             </div>
         </div>
     </div>
@@ -2243,7 +2447,7 @@
 
     <!-- JavaScript -->
     <script>
-        // Hours Modal Functions
+        // Anniversary promo modal
         function showModal() {
             const modal = document.getElementById('hoursModal');
             modal.classList.add('active');
@@ -2255,16 +2459,14 @@
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
 
-            // Set cookie to remember user has seen the modal
             const expiryDate = new Date();
-            expiryDate.setDate(expiryDate.getDate() + 30); // 30 days
-            document.cookie = `hoursModalSeen=true; expires=${expiryDate.toUTCString()}; path=/`;
+            expiryDate.setDate(expiryDate.getDate() + 14);
+            document.cookie = `promoAnniversary2026=true; expires=${expiryDate.toUTCString()}; path=/`;
         }
 
-        // Check if user has seen the modal before
         function hasSeenModal() {
             return document.cookie.split(';').some(cookie =>
-                cookie.trim().startsWith('hoursModalSeen=true')
+                cookie.trim().startsWith('promoAnniversary2026=true')
             );
         }
 
