@@ -1916,7 +1916,10 @@
                             <div class="form-group">
                                 <label for="bk-date">Date souhaitée <span class="bk-req">*</span></label>
                                 <input type="date" id="bk-date">
-                                <small id="bk-date-note" style="display:none;color:#c00;font-size:12px;margin-top:5px;display:none;">
+                                <small style="color:#666;font-size:12px;margin-top:5px;display:block;">
+                                    Les réservations en ligne commencent à partir de demain (pas le jour même).
+                                </small>
+                                <small id="bk-date-note" style="display:none;color:#c00;font-size:12px;margin-top:5px;">
                                     <i class="fas fa-exclamation-circle"></i> La clinique est fermée le dimanche et le lundi.
                                 </small>
                             </div>
@@ -2029,13 +2032,32 @@
             }
         }
 
+        function bkLocalYmd(d) {
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, "0");
+            const day = String(d.getDate()).padStart(2, "0");
+            return `${y}-${m}-${day}`;
+        }
+
+        function bkTodayYmd() {
+            return bkLocalYmd(new Date());
+        }
+
+        function isSameDayBooking(dateStr) {
+            return !!dateStr && dateStr === bkTodayYmd();
+        }
+
         function setDateLimits(windowDays) {
             const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(today.getDate() + 1);
             const max = new Date(today);
             max.setDate(today.getDate() + windowDays);
-            const fmt = d => d.toISOString().split("T")[0];
             const el = document.getElementById("bk-date");
-            if (el) { el.min = fmt(today); el.max = fmt(max); }
+            if (el) {
+                el.min = bkLocalYmd(tomorrow);
+                el.max = bkLocalYmd(max);
+            }
         }
 
         function isClosedDay(dateStr) {
@@ -2045,7 +2067,15 @@
 
         document.getElementById("bk-date").addEventListener("change", function() {
             const note = document.getElementById("bk-date-note");
-            note.style.display = isClosedDay(this.value) ? "block" : "none";
+            if (isSameDayBooking(this.value)) {
+                note.innerHTML = '<i class="fas fa-exclamation-circle"></i> Les réservations en ligne ne sont pas disponibles pour aujourd\'hui.';
+                note.style.display = "block";
+            } else if (isClosedDay(this.value)) {
+                note.innerHTML = '<i class="fas fa-exclamation-circle"></i> La clinique est fermée le dimanche et le lundi.';
+                note.style.display = "block";
+            } else {
+                note.style.display = "none";
+            }
         });
 
         function bkSetStep(s) {
@@ -2093,6 +2123,11 @@
                 const err2 = document.getElementById("bk-err-2");
                 if (!service) { err2.textContent = "Veuillez sélectionner un service."; err2.style.display = "block"; return; }
                 if (!date) { err2.textContent = "Veuillez sélectionner une date."; err2.style.display = "block"; return; }
+                if (isSameDayBooking(date)) {
+                    err2.textContent = "Les réservations en ligne ne sont pas disponibles pour aujourd'hui. Veuillez choisir une date à partir de demain.";
+                    err2.style.display = "block";
+                    return;
+                }
                 if (isClosedDay(date)) { err2.textContent = "La clinique est fermée le dimanche et le lundi. Veuillez choisir une autre date."; err2.style.display = "block"; return; }
                 err2.style.display = "none";
                 bkLoadSlots();
@@ -2178,8 +2213,9 @@
                 const res = await fetch(`${CF_BASE}/getAvailableSlots?${params}`);
                 const data = await res.json().catch(() => ({}));
                 if (!res.ok || !Array.isArray(data.slots)) {
-                    noneEl.textContent =
-                        "Impossible de charger les créneaux (vérification des conflits). Veuillez rafraîchir la page ou nous appeler.";
+                    noneEl.textContent = isSameDayBooking(date)
+                        ? "Les réservations en ligne ne sont pas disponibles pour aujourd'hui. Veuillez choisir une date à partir de demain."
+                        : "Impossible de charger les créneaux (vérification des conflits). Veuillez rafraîchir la page ou nous appeler.";
                     noneEl.style.display = "block";
                     return;
                 }
