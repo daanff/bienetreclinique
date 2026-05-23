@@ -2011,6 +2011,7 @@
         let bkTherapists = [];
         let bkClinicOpen = 10;
         let bkClinicClose = 20;
+        let bkMinLeadHours = 0;
 
         async function bkInit() {
             try {
@@ -2024,6 +2025,7 @@
                 bkTherapists = data.therapists || [];
                 bkClinicOpen = Number(data.clinicOpenHour) || 10;
                 bkClinicClose = Number(data.clinicCloseHour) || 20;
+                bkMinLeadHours = Math.max(0, Number(data.minBookingLeadHours) || 0);
                 setDateLimits(data.bookingWindowDays || 14);
                 document.getElementById("bk-form-wrapper").style.display = "block";
             } catch(e) {
@@ -2228,7 +2230,9 @@
                 if (slots.length === 0) {
                     noneEl.textContent = data.closed
                         ? "La clinique est fermée ce jour-là."
-                        : "Aucun créneau disponible pour cette date.";
+                        : bkMinLeadHours > 0
+                            ? `Aucun créneau disponible (réservation au moins ${bkMinLeadHours} h à l'avance).`
+                            : "Aucun créneau disponible pour cette date.";
                     noneEl.style.display = "block";
                 } else {
                     const grid = document.getElementById("bk-slots-grid");
