@@ -1916,9 +1916,7 @@
                             <div class="form-group">
                                 <label for="bk-date">Date souhaitée <span class="bk-req">*</span></label>
                                 <input type="date" id="bk-date">
-                                <small style="color:#666;font-size:12px;margin-top:5px;display:block;">
-                                    Les réservations en ligne commencent à partir de demain. Pour aujourd'hui, appelez le <a href="tel:4504866677">(450) 486-6677</a>.
-                                </small>
+                                <small id="bk-lead-hint" style="color:#666;font-size:12px;margin-top:5px;display:block;"></small>
                                 <small id="bk-date-note" style="display:none;color:#c00;font-size:12px;margin-top:5px;">
                                     <i class="fas fa-exclamation-circle"></i> La clinique est fermée le dimanche et le lundi.
                                 </small>
@@ -2025,8 +2023,9 @@
                 bkTherapists = data.therapists || [];
                 bkClinicOpen = Number(data.clinicOpenHour) || 10;
                 bkClinicClose = Number(data.clinicCloseHour) || 20;
-                bkMinLeadHours = Math.max(0, Number(data.minBookingLeadHours) || 0);
+                bkMinLeadHours = Math.max(0, Number(data.minBookingLeadHours) || 24);
                 setDateLimits(data.bookingWindowDays || 14);
+                updateLeadHoursHint();
                 document.getElementById("bk-form-wrapper").style.display = "block";
             } catch(e) {
                 document.getElementById("bk-loading").innerHTML = '<p style="color:#c00">Erreur de chargement. Veuillez rafraîchir.</p>';
@@ -2045,23 +2044,29 @@
             return bkLocalYmd(new Date());
         }
 
-        function isSameDayBooking(dateStr) {
-            return !!dateStr && dateStr === bkTodayYmd();
+        function updateLeadHoursHint() {
+            const el = document.getElementById("bk-lead-hint");
+            if (!el) return;
+            const h = bkMinLeadHours;
+            if (h > 0) {
+                el.innerHTML =
+                    `Réservation en ligne au moins <strong>${h}</strong> h à l'avance ` +
+                    `(aujourd'hui possible si le créneau le permet). ` +
+                    `Sinon, appelez le <a href="tel:4504866677">(450) 486-6677</a>.`;
+            } else {
+                el.innerHTML =
+                    `Choisissez une date et un créneau disponible. ` +
+                    `Questions? <a href="tel:4504866677">(450) 486-6677</a>.`;
+            }
         }
-
-        const BK_SAME_DAY_MSG =
-            "La réservation en ligne n'est pas disponible pour aujourd'hui. " +
-            "Veuillez nous appeler au (450) 486-6677.";
 
         function setDateLimits(windowDays) {
             const today = new Date();
-            const tomorrow = new Date(today);
-            tomorrow.setDate(today.getDate() + 1);
             const max = new Date(today);
             max.setDate(today.getDate() + windowDays);
             const el = document.getElementById("bk-date");
             if (el) {
-                el.min = bkLocalYmd(tomorrow);
+                el.min = bkLocalYmd(today);
                 el.max = bkLocalYmd(max);
             }
         }
@@ -2073,11 +2078,7 @@
 
         document.getElementById("bk-date").addEventListener("change", function() {
             const note = document.getElementById("bk-date-note");
-            if (isSameDayBooking(this.value)) {
-                note.innerHTML =
-                    '<i class="fas fa-exclamation-circle"></i> ' + BK_SAME_DAY_MSG;
-                note.style.display = "block";
-            } else if (isClosedDay(this.value)) {
+            if (isClosedDay(this.value)) {
                 note.innerHTML = '<i class="fas fa-exclamation-circle"></i> La clinique est fermée le dimanche et le lundi.';
                 note.style.display = "block";
             } else {
@@ -2130,11 +2131,6 @@
                 const err2 = document.getElementById("bk-err-2");
                 if (!service) { err2.textContent = "Veuillez sélectionner un service."; err2.style.display = "block"; return; }
                 if (!date) { err2.textContent = "Veuillez sélectionner une date."; err2.style.display = "block"; return; }
-                if (isSameDayBooking(date)) {
-                    err2.textContent = BK_SAME_DAY_MSG;
-                    err2.style.display = "block";
-                    return;
-                }
                 if (isClosedDay(date)) { err2.textContent = "La clinique est fermée le dimanche et le lundi. Veuillez choisir une autre date."; err2.style.display = "block"; return; }
                 err2.style.display = "none";
                 bkLoadSlots();
@@ -2220,9 +2216,8 @@
                 const res = await fetch(`${CF_BASE}/getAvailableSlots?${params}`);
                 const data = await res.json().catch(() => ({}));
                 if (!res.ok || !Array.isArray(data.slots)) {
-                    noneEl.textContent = isSameDayBooking(date)
-                        ? BK_SAME_DAY_MSG
-                        : "Impossible de charger les créneaux (vérification des conflits). Veuillez rafraîchir la page ou nous appeler.";
+                    noneEl.textContent =
+                        "Impossible de charger les créneaux (vérification des conflits). Veuillez rafraîchir la page ou nous appeler.";
                     noneEl.style.display = "block";
                     return;
                 }
