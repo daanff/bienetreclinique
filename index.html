@@ -2097,6 +2097,15 @@
                 }
             }
             document.querySelectorAll(".bk-connector").forEach((c, idx) => c.classList.toggle("done", idx + 1 < s));
+
+            // Defensive: whenever we land on the confirm step, make sure the
+            // submit button is in a clean state. Without this guard, leftover
+            // state from a previous booking (success transition, stale
+            // dataset.submitting flag, etc.) makes the button look stuck on
+            // "Envoi en cours…" the instant the user arrives at step 4.
+            if (s === 4 && typeof bkResetSubmitButton === "function") {
+                bkResetSubmitButton();
+            }
         }
 
         window.showPrivacyModal = function() {
@@ -2287,45 +2296,82 @@
             });
         });
 
+        const BK_SUBMIT_LABEL = '<i class="fas fa-paper-plane"></i>&nbsp;Envoyer la demande';
+        const BK_SUBMIT_LOADING_LABEL = '<i class="fas fa-spinner fa-spin"></i>&nbsp;Envoi en cours…';
+        const BK_FETCH_TIMEOUT_MS = 30000; // 30s — Cloud Function cold start can take 10s+
+
+        function bkResetSubmitButton() {
+            const submitBtn = document.getElementById("bk-submit");
+            if (!submitBtn) return;
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = BK_SUBMIT_LABEL;
+            submitBtn.dataset.submitting = "";
+        }
+
         document.getElementById("booking-form").addEventListener("submit", async function(e) {
             e.preventDefault();
             const errEl = document.getElementById("bk-error");
             errEl.style.display = "none";
             const submitBtn = document.getElementById("bk-submit");
+            // Guard against double-submit even if the browser fires it twice.
+            if (submitBtn.dataset.submitting === "1") return;
+            submitBtn.dataset.submitting = "1";
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp;Envoi en cours…';
-            const svc = document.getElementById("bk-service").value;
-            const isMassage = svc === "massage_60" || svc === "massage_90";
-            const payload = {
-                clientName: document.getElementById("bk-name").value.trim(),
-                clientPhone: document.getElementById("bk-phone").value.trim(),
-                clientEmail: document.getElementById("bk-email").value.trim(),
-                clientGender: document.querySelector('input[name="bk-client-gender"]:checked')?.value || "other",
-                serviceType: document.getElementById("bk-service").value,
-                preferredTherapistGender: isMassage ? (document.querySelector('input[name="bk-t-gender"]:checked')?.value || "no_preference") : "no_preference",
-                preferredTherapistId: null,
-                preferredDate: document.getElementById("bk-date").value,
-                preferredTime: document.getElementById("bk-time").value,
-                alternateDate: null,
-                notes: document.getElementById("bk-notes").value.trim(),
-            };
+            submitBtn.innerHTML = BK_SUBMIT_LOADING_LABEL;
+
+            let success = false;
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), BK_FETCH_TIMEOUT_MS);
+
             try {
-                const res = await fetch(`${CF_BASE}/submitBookingRequest`, {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
-                const data = await res.json();
+                const svc = document.getElementById("bk-service").value;
+                const isMassage = svc === "massage_60" || svc === "massage_90";
+                const payload = {
+                    clientName: document.getElementById("bk-name").value.trim(),
+                    clientPhone: document.getElementById("bk-phone").value.trim(),
+                    clientEmail: document.getElementById("bk-email").value.trim(),
+                    clientGender: document.querySelector('input[name="bk-client-gender"]:checked')?.value || "other",
+                    serviceType: document.getElementById("bk-service").value,
+                    preferredTherapistGender: isMassage ? (document.querySelector('input[name="bk-t-gender"]:checked')?.value || "no_preference") : "no_preference",
+                    preferredTherapistId: null,
+                    preferredDate: document.getElementById("bk-date").value,
+                    preferredTime: document.getElementById("bk-time").value,
+                    alternateDate: null,
+                    notes: document.getElementById("bk-notes").value.trim(),
+                };
+
+                const res = await fetch(`${CF_BASE}/submitBookingRequest`, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(payload),
+                    signal: controller.signal,
+                });
+                let data = {};
+                try { data = await res.json(); } catch (_) { data = {}; }
                 if (res.ok && data.success) {
                     document.getElementById("bk-form-wrapper").style.display = "none";
                     document.getElementById("bk-success").style.display = "flex";
+                    success = true;
                 } else {
-                    errEl.textContent = data.error || "Une erreur s'est produite. Veuillez réessayer.";
+                    errEl.textContent = data.error || `Une erreur s'est produite (code ${res.status}). Veuillez réessayer.`;
                     errEl.style.display = "block";
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i>&nbsp;Envoyer la demande';
                 }
-            } catch(err) {
-                errEl.textContent = "Erreur réseau. Veuillez réessayer.";
+            } catch (err) {
+                if (err && err.name === "AbortError") {
+                    errEl.textContent = "Délai d'attente dépassé. Vérifiez votre connexion et réessayez.";
+                } else {
+                    errEl.textContent = "Erreur réseau. Veuillez réessayer.";
+                }
                 errEl.style.display = "block";
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i>&nbsp;Envoyer la demande';
+            } finally {
+                clearTimeout(timeoutId);
+                // ALWAYS reset the button — even on success. The success screen
+                // hides the form-wrapper so the user doesn't see the reset, but
+                // leaving the button in its loading state caused a real bug:
+                // if the user later navigated back to step 4 (e.g. via
+                // "Nouvelle réservation" or any other path) the spinner was
+                // still there. Cleaning state unconditionally prevents that.
+                bkResetSubmitButton();
             }
         });
 
@@ -2336,6 +2382,9 @@
             document.getElementById("bk-consent").checked = false;
             document.getElementById("bk-therapist-gender-group").style.display = "none";
             document.getElementById("bk-date-note").style.display = "none";
+            // Reset the submit button in case the previous attempt left it
+            // disabled (e.g. success transition, or a stuck state).
+            bkResetSubmitButton();
             bkSetStep(1);
         };
 
