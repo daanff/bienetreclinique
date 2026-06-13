@@ -31,16 +31,16 @@ CASES = [
         "approach_fr": "En médecine traditionnelle chinoise, les douleurs cervico-scapulaires sont souvent liées à la stagnation du Qi et du sang, aux tensions des méridiens du cou et des épaules, ou au stress accumulé. L'acupuncture vise à harmoniser la circulation, relâcher les tensions et soutenir l'équilibre global. La massothérapie (tissus profonds, points d'acupuncture, massage détente) complète le traitement en relâchant les muscles et améliorant la mobilité.",
         "approach_en": "In traditional Chinese medicine, neck and shoulder pain is often related to Qi and blood stagnation, tension along the neck and shoulder meridians, or accumulated stress. Acupuncture aims to harmonize circulation, release tension and support overall balance. Massage therapy (deep tissue, acupressure points, relaxation massage) complements care by easing muscles and improving mobility.",
         "services_fr": [
-            ("Acupuncture classique", "../index.html#services-acupuncture"),
-            ("Massage des tissus profonds", "../index.html#services-massage"),
-            ("Massage des points d'acupuncture", "../index.html#services-massage"),
-            ("Thérapies intégrées (ventouses, gua sha)", "../index.html#services-integrative"),
+            ("Acupuncture classique", "../#services-acupuncture"),
+            ("Massage des tissus profonds", "../#services-massage"),
+            ("Massage des points d'acupuncture", "../#services-massage"),
+            ("Thérapies intégrées (ventouses, gua sha)", "../#services-integrative"),
         ],
         "services_en": [
-            ("Classic acupuncture", "../../index.html#services-acupuncture"),
-            ("Deep tissue massage", "../../index.html#services-massage"),
-            ("Acupressure massage", "../../index.html#services-massage"),
-            ("Integrative therapies (cupping, gua sha)", "../../index.html#services-integrative"),
+            ("Classic acupuncture", "../../en.html#services-acupuncture"),
+            ("Deep tissue massage", "../../en.html#services-massage"),
+            ("Acupressure massage", "../../en.html#services-massage"),
+            ("Integrative therapies (cupping, gua sha)", "../../en.html#services-integrative"),
         ],
     },
     {
@@ -68,16 +68,16 @@ CASES = [
         "approach_fr": "Le mal de dos est abordé en MTC selon la localisation, l'intensité et les facteurs aggravants (froid, fatigue, stress). L'acupuncture stimule les points et méridiens pour favoriser la circulation du Qi, soulager la douleur et soutenir la récupération. Le massage des tissus profonds, le massage suédois et les thérapies intégrées (ventouses, moxibustion) peuvent être intégrés au plan de soins.",
         "approach_en": "Back pain is addressed in TCM according to location, intensity and aggravating factors (cold, fatigue, stress). Acupuncture stimulates points and meridians to support Qi flow, ease pain and aid recovery. Deep tissue massage, Swedish massage and integrative therapies (cupping, moxibustion) may be included in the care plan.",
         "services_fr": [
-            ("Acupuncture classique", "../index.html#services-acupuncture"),
-            ("Massage des tissus profonds", "../index.html#services-massage"),
-            ("Massage suédois", "../index.html#services-massage"),
-            ("Ventouses et moxibustion", "../index.html#services-integrative"),
+            ("Acupuncture classique", "../#services-acupuncture"),
+            ("Massage des tissus profonds", "../#services-massage"),
+            ("Massage suédois", "../#services-massage"),
+            ("Ventouses et moxibustion", "../#services-integrative"),
         ],
         "services_en": [
-            ("Classic acupuncture", "../../index.html#services-acupuncture"),
-            ("Deep tissue massage", "../../index.html#services-massage"),
-            ("Swedish massage", "../../index.html#services-massage"),
-            ("Cupping and moxibustion", "../../index.html#services-integrative"),
+            ("Classic acupuncture", "../../en.html#services-acupuncture"),
+            ("Deep tissue massage", "../../en.html#services-massage"),
+            ("Swedish massage", "../../en.html#services-massage"),
+            ("Cupping and moxibustion", "../../en.html#services-integrative"),
         ],
     },
     {
@@ -105,16 +105,16 @@ CASES = [
         "approach_fr": "La sciatique requiert une évaluation attentive. En MTC, on cherche à débloquer la stagnation le long des méridiens concernés, tonifier les zones déficientes et relâcher les tensions lombaires et pelviennes. L'acupuncture est souvent combinée à la massothérapie ciblée et, selon le cas, aux ventouses ou au gua sha. Nous accueillons aussi les dossiers SAAQ et CNESST lorsque le traitement est autorisé.",
         "approach_en": "Sciatica requires careful assessment. In TCM, care focuses on unblocking stagnation along affected meridians, tonifying deficient areas and releasing lumbar and pelvic tension. Acupuncture is often combined with targeted massage and, when appropriate, cupping or gua sha. We also welcome SAAQ and CNESST files when treatment is authorized.",
         "services_fr": [
-            ("Acupuncture classique", "../index.html#services-acupuncture"),
-            ("Massage des tissus profonds", "../index.html#services-massage"),
-            ("Ventouses", "../index.html#services-integrative"),
-            ("Gua sha", "../index.html#services-integrative"),
+            ("Acupuncture classique", "../#services-acupuncture"),
+            ("Massage des tissus profonds", "../#services-massage"),
+            ("Ventouses", "../#services-integrative"),
+            ("Gua sha", "../#services-integrative"),
         ],
         "services_en": [
-            ("Classic acupuncture", "../../index.html#services-acupuncture"),
-            ("Deep tissue massage", "../../index.html#services-massage"),
-            ("Cupping", "../../index.html#services-integrative"),
-            ("Gua sha", "../../index.html#services-integrative"),
+            ("Classic acupuncture", "../../en.html#services-acupuncture"),
+            ("Deep tissue massage", "../../en.html#services-massage"),
+            ("Cupping", "../../en.html#services-integrative"),
+            ("Gua sha", "../../en.html#services-integrative"),
         ],
     },
     {
@@ -142,16 +142,16 @@ CASES = [
         "approach_fr": "En MTC, l'insomnie est liée à un déséquilibre du Shen (esprit), du Yin et du Yang, ou à des tensions liées au stress. L'acupuncture harmonise les méridiens du cœur, du foie et des reins selon votre profil. Le massage détente, le massage du visage et les séances en fin de journée favorisent la relaxation. Un plan personnalisé peut inclure des conseils de rythme de vie adaptés à votre situation.",
         "approach_en": "In TCM, insomnia is linked to Shen (spirit) imbalance, Yin-Yang disharmony or stress-related tension. Acupuncture harmonizes the heart, liver and kidney meridians according to your profile. Relaxation massage, facial massage and late-day sessions promote calm. A personalized plan may include lifestyle rhythm guidance suited to your situation.",
         "services_fr": [
-            ("Acupuncture classique", "../index.html#services-acupuncture"),
-            ("Massage détente", "../index.html#services-massage"),
-            ("Massage du visage", "../index.html#services-massage"),
-            ("Consultation + acupuncture (première visite)", "../index.html#book"),
+            ("Acupuncture classique", "../#services-acupuncture"),
+            ("Massage détente", "../#services-massage"),
+            ("Massage du visage", "../#services-massage"),
+            ("Consultation + acupuncture (première visite)", "../#book"),
         ],
         "services_en": [
-            ("Classic acupuncture", "../../index.html#services-acupuncture"),
-            ("Relaxation massage", "../../index.html#services-massage"),
-            ("Facial massage", "../../index.html#services-massage"),
-            ("Consultation + acupuncture (first visit)", "../../index.html#book"),
+            ("Classic acupuncture", "../../en.html#services-acupuncture"),
+            ("Relaxation massage", "../../en.html#services-massage"),
+            ("Facial massage", "../../en.html#services-massage"),
+            ("Consultation + acupuncture (first visit)", "../../en.html#book"),
         ],
     },
     {
@@ -179,16 +179,16 @@ CASES = [
         "approach_fr": "Le stress et l'anxiété sont abordés en MTC par la régulation du Qi du foie, du cœur et de la rate, selon votre tableau clinique. L'acupuncture aide à apaiser le système nerveux et à rétablir l'harmonie intérieure. Le massage détente, le massage suédois et la réflexologie plantaire complètent efficacement les séances pour favoriser une détente profonde.",
         "approach_en": "Stress and anxiety are addressed in TCM by regulating liver, heart and spleen Qi according to your clinical pattern. Acupuncture helps calm the nervous system and restore inner harmony. Relaxation massage, Swedish massage and foot reflexology effectively complement sessions to encourage deep relaxation.",
         "services_fr": [
-            ("Acupuncture classique", "../index.html#services-acupuncture"),
-            ("Massage détente", "../index.html#services-massage"),
-            ("Réflexologie plantaire", "../index.html#services-massage"),
-            ("Massage suédois", "../index.html#services-massage"),
+            ("Acupuncture classique", "../#services-acupuncture"),
+            ("Massage détente", "../#services-massage"),
+            ("Réflexologie plantaire", "../#services-massage"),
+            ("Massage suédois", "../#services-massage"),
         ],
         "services_en": [
-            ("Classic acupuncture", "../../index.html#services-acupuncture"),
-            ("Relaxation massage", "../../index.html#services-massage"),
-            ("Foot reflexology", "../../index.html#services-massage"),
-            ("Swedish massage", "../../index.html#services-massage"),
+            ("Classic acupuncture", "../../en.html#services-acupuncture"),
+            ("Relaxation massage", "../../en.html#services-massage"),
+            ("Foot reflexology", "../../en.html#services-massage"),
+            ("Swedish massage", "../../en.html#services-massage"),
         ],
     },
     {
@@ -216,52 +216,52 @@ CASES = [
         "approach_fr": "Les migraines sont étudiées en MTC selon la zone touchée, les facteurs déclenchants et la constitution. L'acupuncture vise à harmoniser le Yang du foie, apaiser le Shen et réguler la circulation du Qi et du sang vers la tête. Des séances régulières peuvent contribuer à réduire la fréquence et l'intensité des crises, en complément du suivi médical.",
         "approach_en": "Migraines are assessed in TCM according to affected area, triggers and constitution. Acupuncture aims to harmonize liver Yang, calm the Shen and regulate Qi and blood flow to the head. Regular sessions may help reduce frequency and intensity of attacks, as a complement to medical follow-up.",
         "services_fr": [
-            ("Acupuncture classique", "../index.html#services-acupuncture"),
-            ("Massage du visage et du cou", "../index.html#services-massage"),
-            ("Massage des points d'acupuncture", "../index.html#services-massage"),
-            ("Massage détente", "../index.html#services-massage"),
+            ("Acupuncture classique", "../#services-acupuncture"),
+            ("Massage du visage et du cou", "../#services-massage"),
+            ("Massage des points d'acupuncture", "../#services-massage"),
+            ("Massage détente", "../#services-massage"),
         ],
         "services_en": [
-            ("Classic acupuncture", "../../index.html#services-acupuncture"),
-            ("Facial and neck massage", "../../index.html#services-massage"),
-            ("Acupressure massage", "../../index.html#services-massage"),
-            ("Relaxation massage", "../../index.html#services-massage"),
+            ("Classic acupuncture", "../../en.html#services-acupuncture"),
+            ("Facial and neck massage", "../../en.html#services-massage"),
+            ("Acupressure massage", "../../en.html#services-massage"),
+            ("Relaxation massage", "../../en.html#services-massage"),
         ],
     },
 ]
 
 
-def header_fr(base: str, active_cas: bool = False, lang_href: str = "../en/cases/index.html", fr_href: str = "index.html") -> str:
+def header_fr(base: str, active_cas: bool = False, lang_href: str = "../en/cases/", fr_href: str = "../cas/") -> str:
     cas_cls = ' class="nav-book"' if active_cas else ""
     return f"""    <header class="site-header" id="top">
         <div class="container header-inner">
             <nav class="navbar">
-                <a href="{base}index.html" class="logo" aria-label="Clinique Bien-Être Acupuncture et Massage">
+                <a href="{base}" class="logo" aria-label="Clinique Bien-Être Acupuncture et Massage">
                     <span class="logo-line"><span class="logo-clinique">Clinique</span><span class="logo-brand"> Bien-Être</span></span>
                     <span class="logo-line logo-line--sub">Acupuncture et Massage</span>
                 </a>
                 <button class="mobile-menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav"><i class="fas fa-bars"></i></button>
                 <ul class="nav-links" id="site-nav">
-                    <li><a href="{base}index.html">Accueil</a></li>
-                    <li><a href="{base}index.html#services">Services</a></li>
-                    <li><a href="{base}index.html#about">Philosophie</a></li>
-                    <li><a href="{base}index.html#book">Réserver</a></li>
-                    <li><a href="{base}cas/index.html"{cas_cls}>Cas cliniques</a></li>
-                    <li><a href="{base}index.html#faq">FAQ</a></li>
-                    <li><a href="{base}index.html#contact">Contact</a></li>
+                    <li><a href="{base}">Accueil</a></li>
+                    <li><a href="{base}#services">Services</a></li>
+                    <li><a href="{base}#about">Philosophie</a></li>
+                    <li><a href="{base}#book">Réserver</a></li>
+                    <li><a href="{base}cas/"{cas_cls}>Cas cliniques</a></li>
+                    <li><a href="{base}#faq">FAQ</a></li>
+                    <li><a href="{base}#contact">Contact</a></li>
                     <li class="lang-switch">
                         <a href="{fr_href}" class="active" hreflang="fr" lang="fr">FR</a>
                         <span aria-hidden="true">|</span>
                         <a href="{lang_href}" hreflang="en" lang="en">EN</a>
                     </li>
                 </ul>
-                <a href="{base}index.html#book" class="btn btn-sm nav-cta">Réserver</a>
+                <a href="{base}#book" class="btn btn-sm nav-cta">Réserver</a>
             </nav>
         </div>
     </header>"""
 
 
-def header_en(base: str, lang_href: str = "../../cas/index.html", en_href: str = "index.html") -> str:
+def header_en(base: str, lang_href: str = "../../cas/", en_href: str = "../cases/") -> str:
     return f"""    <header class="site-header" id="top">
         <div class="container header-inner">
             <nav class="navbar">
@@ -275,7 +275,7 @@ def header_en(base: str, lang_href: str = "../../cas/index.html", en_href: str =
                     <li><a href="{base}en.html#services">Services</a></li>
                     <li><a href="{base}en.html#about">Philosophy</a></li>
                     <li><a href="{base}en.html#book">Book</a></li>
-                    <li><a href="index.html" class="nav-book">Cases</a></li>
+                    <li><a href="{base}en/cases/" class="nav-book">Cases</a></li>
                     <li><a href="{base}en.html#faq">FAQ</a></li>
                     <li><a href="{base}en.html#contact">Contact</a></li>
                     <li class="lang-switch">
@@ -383,7 +383,7 @@ def render_case(case: dict, lang: str) -> str:
     if fr:
         css = "../css/"
         base = "../"
-        hub = "index.html"
+        hub = "../cas/"
         slug = case["slug_fr"]
         en_link = f"../en/cases/{case['slug_en']}.html"
         title = case["title_fr"]
@@ -391,8 +391,8 @@ def render_case(case: dict, lang: str) -> str:
         symptoms = case["symptoms_fr"]
         approach = case["approach_fr"]
         services = case["services_fr"]
-        book = "../index.html#book"
-        home = "../index.html"
+        book = "../#book"
+        home = "../"
         meta_desc = f"{title} — acupuncture et massothérapie à Brossard. Clinique Bien-Être, Rive-Sud."
         canonical = f"https://bienetreclinique.ca/cas/{slug}.html"
         alt_en = f'<link rel="alternate" hreflang="en-CA" href="https://bienetreclinique.ca/en/cases/{case["slug_en"]}.html">'
@@ -407,7 +407,7 @@ def render_case(case: dict, lang: str) -> str:
     else:
         css = "../../css/"
         base = "../../"
-        hub = "index.html"
+        hub = "../cases/"
         slug = case["slug_en"]
         en_link = ""
         title = case["title_en"]
