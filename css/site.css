@@ -244,6 +244,13 @@ header.site-header .container,
     gap: 24px;
 }
 
+/* Header uses a wider centred container than the body so the nav fills more of
+   the bar while still keeping some breathing room on the sides. */
+.site-header .container.header-inner {
+    width: min(94%, 1440px);
+    max-width: none;
+}
+
 /* Logo enseigne — Clinique (vert) + Bien-Être… (terracotta) */
 .logo {
     display: block;
@@ -461,6 +468,83 @@ header.site-header .container,
 .trust-item span {
     font-size: 13px;
     opacity: 0.8;
+}
+
+/* Coverage — SAAQ / CNESST */
+.coverage {
+    background: linear-gradient(180deg, var(--cream-deep), var(--cream));
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.coverage-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 920px;
+    margin: 0 auto;
+}
+
+.coverage-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 36px 32px;
+    text-align: center;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.coverage-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
+}
+
+.coverage-badge {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    font-size: 1.1rem;
+    color: var(--white);
+    background: var(--primary);
+    padding: 10px 22px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+}
+
+.coverage-card:nth-child(2) .coverage-badge { background: var(--secondary); }
+
+.coverage-card h3 {
+    font-size: 1.35rem;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.coverage-card p {
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+.coverage-cta {
+    text-align: center;
+    margin-top: 44px;
+}
+
+.coverage-note {
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 640px;
+    margin: 0 auto 22px;
+    line-height: 1.7;
+}
+
+.coverage-note i { color: var(--primary); margin-right: 6px; }
+.coverage-note a { color: var(--primary); font-weight: 600; }
+
+@media (max-width: 720px) {
+    .coverage-grid { grid-template-columns: 1fr; }
 }
 
 /* Services */
