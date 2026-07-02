@@ -1872,13 +1872,15 @@
 
     <!-- JavaScript -->
     <script>
-        // Service schedule notice modal (active through 19 Aug 2026, local time)
+        // Service schedule notice modal (3 Jul – 15 Aug 2026, local time)
         const PROMO_STORAGE_KEY = 'bienetre_notice_service_update_dismissed';
         const PROMO_DISMISS_MS = 7 * 24 * 60 * 60 * 1000;
-        const PROMO_END_MS = new Date(2026, 7, 20, 0, 0, 0, 0).getTime();
+        const PROMO_START_MS = new Date(2026, 6, 3, 0, 0, 0, 0).getTime();
+        const PROMO_END_MS = new Date(2026, 7, 16, 0, 0, 0, 0).getTime();
 
         function promoIsActive() {
-            return Date.now() < PROMO_END_MS;
+            const now = Date.now();
+            return now >= PROMO_START_MS && now < PROMO_END_MS;
         }
 
         function promoShouldShow() {
