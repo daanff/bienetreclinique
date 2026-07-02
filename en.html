@@ -369,55 +369,19 @@
 
 <body>
     <a class="skip-link" href="#main">Skip to main content</a>
-    <!-- 1st Anniversary Promotion Modal -->
+    <!-- Service schedule notice modal -->
     <div class="modal-overlay" id="hoursModal">
         <div class="modal-content" role="dialog" aria-labelledby="promoModalTitle" aria-modal="true">
             <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
             <div class="promo-modal-hero">
-                <div class="promo-anniv-badge">
-                    <i class="fas fa-star"></i>
-                    <span>1<sup>st</sup> anniversary</span>
-                </div>
-                <h3 id="promoModalTitle">First anniversary promotion</h3>
-                <p class="promo-subtitle">Massage therapy — special offer celebrating our first year · valid until June&nbsp;30,&nbsp;2026</p>
+                <h3 id="promoModalTitle">Service schedule update</h3>
             </div>
 
-            <div class="promo-modal-body">
-                <div class="promo-offers">
-                    <div class="promo-offer-card">
-                        <i class="fas fa-spa"></i>
-                        <div class="promo-offer-duration">Massage</div>
-                        <div class="promo-offer-price"><span>$</span>90</div>
-                        <div class="promo-offer-label">60 minutes</div>
-                    </div>
-                    <div class="promo-offer-card featured">
-                        <i class="fas fa-leaf"></i>
-                        <div class="promo-offer-duration">Massage</div>
-                        <div class="promo-offer-price"><span>$</span>135</div>
-                        <div class="promo-offer-label">90 minutes</div>
-                    </div>
-                </div>
-
-                <p class="promo-clinic-name">Clinique Bien-Être<br>Acupuncture et Massage</p>
-
-                <ul class="promo-contact-list">
-                    <li>
-                        <i class="fas fa-phone-alt"></i>
-                        <span><a href="tel:4504866677">(450) 486-6677</a></span>
-                    </li>
-                    <li>
-                        <i class="fas fa-envelope"></i>
-                        <span><a href="mailto:info@bienetreclinique.ca">info@bienetreclinique.ca</a></span>
-                    </li>
-                    <li>
-                        <i class="fas fa-globe"></i>
-                        <span><a href="https://bienetreclinique.ca" target="_blank" rel="noopener">bienetreclinique.ca</a></span>
-                    </li>
-                    <li>
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>3-8500 Taschereau Blvd, Brossard, QC, J4X 2T4</span>
-                    </li>
-                </ul>
+            <div class="promo-modal-body notice-modal-body">
+                <p>Dear clients,</p>
+                <p>The owner will be away for about six weeks. The clinic will remain open during this period, except on Thursdays when we are closed.</p>
+                <p>To ensure continuity of care, a licensed acupuncturist will temporarily provide services. All treatment protocols and professional standards remain unchanged.</p>
+                <p>Thank you for your trust. We look forward to continuing to serve you.</p>
 
                 <div class="promo-modal-actions">
                     <a href="#book" class="btn" onclick="closeModal()">
@@ -425,7 +389,6 @@
                     </a>
                     <button type="button" class="btn-outline-promo" onclick="closeModal()">Close</button>
                 </div>
-                <p class="promo-fine-print">Anniversary offer — 60 min massage $90 and 90 min $135. Promotion valid through June&nbsp;30,&nbsp;2026 inclusive. Thank you for your trust. Terms and conditions apply.</p>
             </div>
         </div>
     </div>
@@ -1909,10 +1872,10 @@
 
     <!-- JavaScript -->
     <script>
-        // Anniversary promo modal (active through 30 June 2026, local time)
-        const PROMO_STORAGE_KEY = 'bienetre_promo_anniv_dismissed';
+        // Service schedule notice modal (active through 19 Aug 2026, local time)
+        const PROMO_STORAGE_KEY = 'bienetre_notice_service_update_dismissed';
         const PROMO_DISMISS_MS = 7 * 24 * 60 * 60 * 1000;
-        const PROMO_END_MS = new Date(2026, 6, 1, 0, 0, 0, 0).getTime();
+        const PROMO_END_MS = new Date(2026, 7, 20, 0, 0, 0, 0).getTime();
 
         function promoIsActive() {
             return Date.now() < PROMO_END_MS;

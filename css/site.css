@@ -1102,6 +1102,17 @@ footer {
 
 .promo-modal-body { padding: 28px 32px 32px; }
 
+.notice-modal-body p {
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.75;
+    margin-bottom: 1em;
+}
+
+.notice-modal-body p:last-of-type { margin-bottom: 0; }
+
+.notice-modal-body .promo-modal-actions { margin-top: 28px; }
+
 .promo-offers {
     display: grid;
     grid-template-columns: 1fr 1fr;
