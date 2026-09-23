@@ -92,7 +92,14 @@
             },
             {
               "@type": "OpeningHoursSpecification",
-              "dayOfWeek": ["Sunday","Monday"],
+              "dayOfWeek": ["Sunday"],
+              "opens": "10:00",
+              "closes": "20:00",
+              "description": "Massothérapie seulement"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday"],
               "opens": "00:00",
               "closes": "00:00",
               "description": "Fermé"
@@ -369,19 +376,20 @@
 
 <body>
     <a class="skip-link" href="#main">Aller au contenu principal</a>
-    <!-- Service schedule notice modal -->
+    <!-- First-visit Sunday massage announcement -->
     <div class="modal-overlay" id="hoursModal">
-        <div class="modal-content" role="dialog" aria-labelledby="promoModalTitle" aria-modal="true">
+        <div class="modal-content" role="dialog" aria-labelledby="promoModalTitle" aria-describedby="sundayNoticeDescription" aria-modal="true">
             <button class="modal-close" onclick="closeModal()" aria-label="Fermer">&times;</button>
-            <div class="promo-modal-hero">
-                <h3 id="promoModalTitle">Avis de mise à jour des services</h3>
+            <div class="promo-modal-hero sunday-modal-hero">
+                <span class="promo-anniv-badge">NOUVEAU · LE DIMANCHE</span>
+                <h3 id="promoModalTitle">Votre dimanche, tout en détente</h3>
+                <p class="promo-subtitle">Massothérapie à la Clinique Bien-Être</p>
             </div>
 
             <div class="promo-modal-body notice-modal-body">
-                <p>Chers clients,</p>
-                <p>La propriétaire s&rsquo;absentera temporairement pour environ six semaines. La clinique demeurera ouverte durant cette période, à l&rsquo;exception du jeudi, jour où nous sommes fermés.</p>
-                <p>Afin d&rsquo;assurer la continuité de vos soins, une acupunctrice titulaire d&rsquo;un permis régulier assurera temporairement les traitements. Les protocoles et les normes professionnelles demeurent les mêmes.</p>
-                <p>Nous vous remercions de votre confiance et avons hâte de continuer à vous accompagner.</p>
+                <div class="sunday-hours"><span>Chaque dimanche</span><strong>10:00 <span>–</span> 20:00</strong></div>
+                <p id="sundayNoticeDescription">La massothérapie est maintenant offerte le dimanche, de 10 h à 20 h. Un nouveau moment pour prendre soin de vous, à votre rythme.</p>
+                <p class="sunday-scope">Le dimanche est réservé à la massothérapie. La clinique reste fermée le lundi.</p>
 
                 <div class="promo-modal-actions">
                     <a href="#book" class="btn" onclick="closeModal()">
@@ -606,6 +614,7 @@
                         <p>Large éventail de techniques manuelles pour la détente, le drainage lymphatique, la récupération sportive, les soins ciblés ou le bien-être de toute la famille.</p>
                     </div>
                 </div>
+                <a href="#book" class="sunday-service-note"><span class="sunday-label">Nouveau</span><span>Aussi le dimanche <strong>10:00–20:00</strong></span><span class="sunday-note-link">Réserver <span aria-hidden="true">→</span></span></a>
                 <div class="service-subgrid">
                     <article class="service-subcard">
                         <div class="service-img">
@@ -901,7 +910,7 @@
                     </div>
                     <div class="bk-info-item">
                         <i class="fas fa-clock"></i>
-                        <div>Mardi – Samedi : 10h – 20h<br><em style="opacity:.75">Dim &amp; Lun : Fermé</em></div>
+                        <div>Mardi – Samedi : 10h – 20h<br><em style="opacity:.75">Dimanche : 10h – 20h (massothérapie seulement)<br>Lundi : Fermé</em></div>
                     </div>
                     <div class="bk-info-item">
                         <i class="fas fa-map-marker-alt"></i>
@@ -1052,7 +1061,7 @@
                                 <input type="date" id="bk-date">
                                 <small id="bk-lead-hint" style="color:#666;font-size:12px;margin-top:5px;display:block;"></small>
                                 <small id="bk-date-note" style="display:none;color:#c00;font-size:12px;margin-top:5px;">
-                                    <i class="fas fa-exclamation-circle"></i> La clinique est fermée le dimanche et le lundi.
+                                    <i class="fas fa-exclamation-circle"></i> Le dimanche est réservé à la massothérapie (10 h – 20 h). La clinique est fermée le lundi.
                                 </small>
                             </div>
                             <div id="bk-err-2" class="bk-error" style="display:none"></div>
@@ -1144,8 +1153,9 @@
             massage_facial: 60, reflexology: 60, moxibustion: 60, ventouses: 60, gua_sha: 60,
         };
         const DAY_NAMES = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
-        // JS getDay(): 0=Sunday, 1=Monday — clinic is closed on these days
-        const CLOSED_DAYS = [0, 1];
+        // Sundays are reserved for massage therapy; Mondays remain closed.
+        const CLOSED_DAYS = [1];
+        const SUNDAY_SERVICES = ["massage_60", "massage_90", "massage_facial", "reflexology"];
 
         let bkTherapists = [];
         let bkClinicOpen = 10;
@@ -1212,15 +1222,16 @@
             }
         }
 
-        function isClosedDay(dateStr) {
+        function isClosedDay(dateStr, service = document.getElementById("bk-service").value) {
             if (!dateStr) return false;
-            return CLOSED_DAYS.includes(new Date(dateStr + "T12:00:00").getDay());
+            const day = new Date(dateStr + "T12:00:00").getDay();
+            return CLOSED_DAYS.includes(day) || (day === 0 && !SUNDAY_SERVICES.includes(service));
         }
 
         document.getElementById("bk-date").addEventListener("change", function() {
             const note = document.getElementById("bk-date-note");
             if (isClosedDay(this.value)) {
-                note.innerHTML = '<i class="fas fa-exclamation-circle"></i> La clinique est fermée le dimanche et le lundi.';
+                note.innerHTML = '<i class="fas fa-exclamation-circle"></i> Le dimanche est réservé à la massothérapie (10 h – 20 h). La clinique est fermée le lundi.';
                 note.style.display = "block";
             } else {
                 note.style.display = "none";
@@ -1281,7 +1292,7 @@
                 const err2 = document.getElementById("bk-err-2");
                 if (!service) { err2.textContent = "Veuillez sélectionner un service."; err2.style.display = "block"; return; }
                 if (!date) { err2.textContent = "Veuillez sélectionner une date."; err2.style.display = "block"; return; }
-                if (isClosedDay(date)) { err2.textContent = "La clinique est fermée le dimanche et le lundi. Veuillez choisir une autre date."; err2.style.display = "block"; return; }
+                if (isClosedDay(date)) { err2.textContent = "Le dimanche est réservé à la massothérapie (10 h – 20 h). La clinique est fermée le lundi. Veuillez choisir une autre date."; err2.style.display = "block"; return; }
                 err2.style.display = "none";
                 bkLoadSlots();
             }
@@ -1301,7 +1312,7 @@
             const duration = SERVICE_DURATIONS[service] || 60;
             const jsDate = new Date(date + "T12:00:00");
             const dow = jsDate.getDay();
-            if (dow === 0 || dow === 1) return []; // Closed Sunday & Monday
+            if (isClosedDay(date, service)) return [];
             const dayName = DAY_NAMES[dow];
             const isMassageSlot = service === "massage_60" || service === "massage_90";
 
@@ -1318,8 +1329,8 @@
                 (avail.slots || []).forEach(interval => {
                     const [sh, sm] = interval.start.split(":").map(Number);
                     const [eh, em] = interval.end.split(":").map(Number);
-                    let cur = sh * 60 + sm;
-                    const end = eh * 60 + em;
+                    let cur = Math.max(sh * 60 + sm, dow === 0 ? 600 : 0);
+                    const end = Math.min(eh * 60 + em, dow === 0 ? 1200 : 1440);
                     while (cur + duration <= end) {
                         const hh = Math.floor(cur / 60);
                         const mm = cur % 60;
@@ -1331,8 +1342,8 @@
 
             // Fallback to general clinic hours if no therapist schedules found
             if (slotSet.size === 0) {
-                let t = bkClinicOpen * 60;
-                while (t + duration <= bkClinicClose * 60) {
+                let t = (dow === 0 ? 10 : bkClinicOpen) * 60;
+                while (t + duration <= (dow === 0 ? 20 : bkClinicClose) * 60) {
                     const hh = Math.floor(t / 60);
                     const mm = t % 60;
                     slotSet.add(`${String(hh).padStart(2,"0")}:${String(mm).padStart(2,"0")}`);
@@ -1425,6 +1436,7 @@
         }
 
         document.getElementById("bk-service").addEventListener("change", function() {
+            document.getElementById("bk-date").dispatchEvent(new Event("change"));
             const v = this.value;
             document.getElementById("bk-therapist-gender-group").style.display =
                 (v === "massage_60" || v === "massage_90") ? "block" : "none";
@@ -1610,7 +1622,7 @@
                 <div><dt>Adresse</dt><dd>3-8500 boul. Taschereau, Brossard, QC J4X 2T4</dd></div>
                 <div><dt>Téléphone</dt><dd><a href="tel:4504866677">(450) 486-6677</a></dd></div>
                 <div><dt>Courriel</dt><dd><a href="mailto:info@bienetreclinique.ca">info@bienetreclinique.ca</a></dd></div>
-                <div><dt>Horaires</dt><dd>Mar–sam : 10 h – 20 h · Dim. et lun. : fermé</dd></div>
+                <div><dt>Horaires</dt><dd>Mar–sam : 10 h – 20 h · Dim. : 10 h – 20 h (massothérapie seulement) · Lun. : fermé</dd></div>
                 <div><dt>Acupunctrice</dt><dd>Caixia Yun, membre de l&rsquo;<a href="https://o-a-q.org/">OAQ</a></dd></div>
                 <div><dt>Services</dt><dd>Acupuncture · Massothérapie · Drainage lymphatique · Ventouses · Médicaments chinois de patente</dd></div>
                 <div><dt>Google</dt><dd><a href="https://share.google/Ag5geCZLRSV0m0i9a" target="_blank" rel="noopener noreferrer">Fiche établissement · avis</a></dd></div>
@@ -1716,7 +1728,7 @@
                             <p>
                                 <strong>Horaires :</strong><br>
                                 Mardi – Samedi : 10h – 20h<br>
-                                <em style="opacity:.75">Dim &amp; Lun : Fermé</em>
+                                <em style="opacity:.75">Dimanche : 10h – 20h (massothérapie seulement)<br>Lundi : Fermé</em>
                             </p>
                         </div>
                     </div>
@@ -1873,65 +1885,53 @@
 
     <!-- JavaScript -->
     <script>
-        // Service schedule notice modal (3 Jul – 15 Aug 2026, local time)
-        const PROMO_STORAGE_KEY = 'bienetre_notice_service_update_dismissed';
-        const PROMO_DISMISS_MS = 7 * 24 * 60 * 60 * 1000;
-        const PROMO_START_MS = new Date(2026, 6, 3, 0, 0, 0, 0).getTime();
-        const PROMO_END_MS = new Date(2026, 7, 16, 0, 0, 0, 0).getTime();
-
-        function promoIsActive() {
-            const now = Date.now();
-            return now >= PROMO_START_MS && now < PROMO_END_MS;
-        }
+        // Shared across French and English; a new announcement has its own key.
+        const PROMO_STORAGE_KEY = 'bienetre_sunday_massage_2026_dismissed';
+        let noticePreviousFocus;
+        let noticePreviousOverflow;
 
         function promoShouldShow() {
-            if (!promoIsActive()) return false;
-            try {
-                const raw = localStorage.getItem(PROMO_STORAGE_KEY);
-                if (!raw) return true;
-                const dismissedAt = parseInt(raw, 10);
-                if (Number.isNaN(dismissedAt)) return true;
-                return Date.now() - dismissedAt > PROMO_DISMISS_MS;
-            } catch (_) {
-                return true;
-            }
+            try { return !localStorage.getItem(PROMO_STORAGE_KEY); }
+            catch (_) { return true; }
         }
 
         function showModal() {
+            if (!promoShouldShow()) return;
             const modal = document.getElementById('hoursModal');
+            noticePreviousFocus = document.activeElement;
+            noticePreviousOverflow = document.body.style.overflow;
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            modal.querySelector('.modal-close').focus();
         }
 
         function closeModal() {
-            try {
-                localStorage.setItem(PROMO_STORAGE_KEY, String(Date.now()));
-            } catch (_) {}
             const modal = document.getElementById('hoursModal');
+            if (!modal.classList.contains('active')) return;
+            try { localStorage.setItem(PROMO_STORAGE_KEY, '1'); } catch (_) {}
             modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = noticePreviousOverflow;
+            noticePreviousFocus?.focus();
         }
 
-        window.addEventListener('load', () => {
-            if (promoShouldShow()) {
-                setTimeout(showModal, 2500);
-            }
-        });
-
-        // Close modal when clicking outside
+        setTimeout(showModal, 900);
         document.getElementById('hoursModal').addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal-overlay')) {
-                closeModal();
-            }
+            if (e.target === e.currentTarget) closeModal();
         });
-
-        // Close modal with Escape key
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeModal();
+            const modal = document.getElementById('hoursModal');
+            if (!modal.classList.contains('active')) return;
+            if (e.key === 'Escape') closeModal();
+            if (e.key === 'Tab') {
+                const controls = modal.querySelectorAll('button, a[href]');
+                const first = controls[0], last = controls[controls.length - 1];
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault(); last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault(); first.focus();
+                }
             }
         });
-
 
         // Header scroll state
         (function () {

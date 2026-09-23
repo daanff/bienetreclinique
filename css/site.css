@@ -1548,3 +1548,49 @@ footer {
     .promo-offers { grid-template-columns: 1fr; }
     .service-subgrid { grid-template-columns: 1fr; }
 }
+
+/* Sunday opening announcement — uses the existing clinic palette. */
+#hoursModal .modal-content { overflow-y: auto; }
+.sunday-modal-hero { padding-top: 52px; }
+.sunday-modal-hero h3 { font-size: clamp(1.8rem, 5vw, 2.3rem); line-height: 1.15; }
+.sunday-hours {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    padding: 18px 20px;
+    margin-bottom: 22px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--cream);
+    color: var(--primary);
+}
+.sunday-hours > span { font-size: 13px; font-weight: 600; }
+.sunday-hours strong { font-size: 25px; font-variant-numeric: tabular-nums; }
+.sunday-hours strong span { color: var(--secondary); }
+.notice-modal-body .sunday-scope { font-size: 13px; color: var(--muted); }
+.sunday-service-note {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    margin: 0 0 24px;
+    padding: 16px 22px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--cream);
+    color: var(--primary);
+    font-size: 14px;
+    text-decoration: none;
+}
+.sunday-label { color: var(--secondary-dark); font-weight: 700; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.sunday-service-note strong { margin-left: 8px; white-space: nowrap; }
+.sunday-note-link { margin-left: auto; font-weight: 600; }
+.sunday-service-note:hover { border-color: var(--primary); }
+#hoursModal :focus-visible, .sunday-service-note:focus-visible { outline: 3px solid var(--secondary); outline-offset: 3px; }
+@media (max-width: 480px) {
+    #hoursModal .promo-modal-hero { padding: 58px 24px 26px; }
+    #hoursModal .promo-modal-body { padding: 22px; }
+    .sunday-service-note { padding: 14px 16px; }
+}
