@@ -1054,65 +1054,6 @@ footer {
 
 #privacyModal { z-index: 10001; }
 
-/* Promo modal */
-#hoursModal .modal-content {
-    max-width: 520px;
-    padding: 0;
-    overflow: hidden;
-}
-
-#hoursModal .modal-close {
-    top: 14px;
-    right: 14px;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    z-index: 2;
-}
-
-#hoursModal .modal-close:hover { background: rgba(255, 255, 255, 0.35); color: #fff; }
-
-.promo-modal-hero {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-mid) 100%);
-    color: #fff;
-    padding: 40px 32px 32px;
-    text-align: center;
-    position: relative;
-}
-
-.promo-anniv-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 8px 16px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    margin-bottom: 16px;
-}
-
-.promo-modal-hero h3 {
-    color: #fff;
-    font-size: 1.65rem;
-    margin-bottom: 8px;
-}
-
-.promo-subtitle { font-size: 14px; opacity: 0.9; }
-
-.promo-modal-body { padding: 28px 32px 32px; }
-
-.notice-modal-body p {
-    color: var(--ink);
-    font-size: 15px;
-    line-height: 1.75;
-    margin-bottom: 1em;
-}
-
-.notice-modal-body p:last-of-type { margin-bottom: 0; }
-
-.notice-modal-body .promo-modal-actions { margin-top: 28px; }
-
 .promo-offers {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1167,24 +1108,6 @@ footer {
 .promo-contact-list li:last-child { border-bottom: none; }
 .promo-contact-list i { color: var(--primary); width: 20px; text-align: center; }
 .promo-contact-list a { color: var(--primary); font-weight: 600; }
-
-.promo-modal-actions { display: flex; flex-direction: column; gap: 10px; }
-.promo-modal-actions .btn { width: 100%; }
-
-.btn-outline-promo {
-    display: inline-block;
-    padding: 12px 24px;
-    background: transparent;
-    border: 2px solid var(--primary);
-    color: var(--primary);
-    border-radius: 999px;
-    font-weight: 600;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.25s;
-}
-
-.btn-outline-promo:hover { background: var(--primary); color: #fff; }
 
 .promo-fine-print {
     text-align: center;
@@ -1547,50 +1470,4 @@ footer {
     .footer-container { grid-template-columns: 1fr; }
     .promo-offers { grid-template-columns: 1fr; }
     .service-subgrid { grid-template-columns: 1fr; }
-}
-
-/* Sunday opening announcement — uses the existing clinic palette. */
-#hoursModal .modal-content { overflow-y: auto; }
-.sunday-modal-hero { padding-top: 52px; }
-.sunday-modal-hero h3 { font-size: clamp(1.8rem, 5vw, 2.3rem); line-height: 1.15; }
-.sunday-hours {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 6px 16px;
-    padding: 18px 20px;
-    margin-bottom: 22px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--cream);
-    color: var(--primary);
-}
-.sunday-hours > span { font-size: 13px; font-weight: 600; }
-.sunday-hours strong { font-size: 25px; font-variant-numeric: tabular-nums; }
-.sunday-hours strong span { color: var(--secondary); }
-.notice-modal-body .sunday-scope { font-size: 13px; color: var(--muted); }
-.sunday-service-note {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px 16px;
-    margin: 0 0 24px;
-    padding: 16px 22px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--cream);
-    color: var(--primary);
-    font-size: 14px;
-    text-decoration: none;
-}
-.sunday-label { color: var(--secondary-dark); font-weight: 700; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
-.sunday-service-note strong { margin-left: 8px; white-space: nowrap; }
-.sunday-note-link { margin-left: auto; font-weight: 600; }
-.sunday-service-note:hover { border-color: var(--primary); }
-#hoursModal :focus-visible, .sunday-service-note:focus-visible { outline: 3px solid var(--secondary); outline-offset: 3px; }
-@media (max-width: 480px) {
-    #hoursModal .promo-modal-hero { padding: 58px 24px 26px; }
-    #hoursModal .promo-modal-body { padding: 22px; }
-    .sunday-service-note { padding: 14px 16px; }
 }

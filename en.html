@@ -92,14 +92,7 @@
             },
             {
               "@type": "OpeningHoursSpecification",
-              "dayOfWeek": ["Sunday"],
-              "opens": "10:00",
-              "closes": "20:00",
-              "description": "Massage therapy only"
-            },
-            {
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": ["Monday"],
+              "dayOfWeek": ["Sunday","Monday"],
               "opens": "00:00",
               "closes": "00:00",
               "description": "Closed"
@@ -376,31 +369,6 @@
 
 <body>
     <a class="skip-link" href="#main">Skip to main content</a>
-    <!-- First-visit Sunday massage announcement -->
-    <div class="modal-overlay" id="hoursModal">
-        <div class="modal-content" role="dialog" aria-labelledby="promoModalTitle" aria-describedby="sundayNoticeDescription" aria-modal="true">
-            <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
-            <div class="promo-modal-hero sunday-modal-hero">
-                <span class="promo-anniv-badge">NEW · SUNDAY MASSAGE</span>
-                <h3 id="promoModalTitle">Make Sunday time for yourself</h3>
-                <p class="promo-subtitle">Massage therapy at Clinique Bien-Être</p>
-            </div>
-
-            <div class="promo-modal-body notice-modal-body">
-                <div class="sunday-hours"><span>Every Sunday</span><strong>10:00 <span>–</span> 20:00</strong></div>
-                <p id="sundayNoticeDescription">Massage therapy is now available on Sundays, from 10 a.m. to 8 p.m. More time to unwind and take care of yourself, at your own pace.</p>
-                <p class="sunday-scope">Sundays are dedicated to massage therapy. The clinic remains closed on Mondays.</p>
-
-                <div class="promo-modal-actions">
-                    <a href="#book" class="btn" onclick="closeModal()">
-                        <i class="fas fa-calendar-check"></i>&nbsp; Book online
-                    </a>
-                    <button type="button" class="btn-outline-promo" onclick="closeModal()">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- ── Privacy policy — Law 25 ── -->
     <div class="modal-overlay" id="privacyModal" onclick="if(event.target===this) closePrivacyModal()">
         <div class="modal-content">
@@ -614,7 +582,6 @@
                         <p>A wide range of manual techniques for relaxation, lymphatic drainage, sports recovery, targeted care or family wellness.</p>
                     </div>
                 </div>
-                <a href="#book" class="sunday-service-note"><span class="sunday-label">New</span><span>Now on Sundays <strong>10:00–20:00</strong></span><span class="sunday-note-link">Book now <span aria-hidden="true">→</span></span></a>
                 <div class="service-subgrid">
                     <article class="service-subcard">
                         <div class="service-img">
@@ -910,7 +877,7 @@
                     </div>
                     <div class="bk-info-item">
                         <i class="fas fa-clock"></i>
-                        <div>Tuesday – Saturday: 10 a.m. – 8 p.m.<br><em style="opacity:.75">Sunday: 10 a.m. – 8 p.m. (massage therapy only)<br>Monday: Closed</em></div>
+                        <div>Tuesday – Saturday: 10 a.m. – 8 p.m.<br><em style="opacity:.75">Sunday and Monday: Closed</em></div>
                     </div>
                     <div class="bk-info-item">
                         <i class="fas fa-map-marker-alt"></i>
@@ -1061,7 +1028,7 @@
                                 <input type="date" id="bk-date">
                                 <small id="bk-lead-hint" style="color:#666;font-size:12px;margin-top:5px;display:block;"></small>
                                 <small id="bk-date-note" style="display:none;color:#c00;font-size:12px;margin-top:5px;">
-                                    <i class="fas fa-exclamation-circle"></i> Sundays are for massage therapy only (10 a.m. – 8 p.m.). The clinic is closed on Mondays.
+                                    <i class="fas fa-exclamation-circle"></i> The clinic is closed on Sundays and Mondays.
                                 </small>
                             </div>
                             <div id="bk-err-2" class="bk-error" style="display:none"></div>
@@ -1153,9 +1120,7 @@
             massage_facial: 60, reflexology: 60, moxibustion: 60, ventouses: 60, gua_sha: 60,
         };
         const DAY_NAMES = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
-        // Sundays are reserved for massage therapy; Mondays remain closed.
-        const CLOSED_DAYS = [1];
-        const SUNDAY_SERVICES = ["massage_60", "massage_90", "massage_facial", "reflexology"];
+        const CLOSED_DAYS = [0, 1];
 
         let bkTherapists = [];
         let bkClinicOpen = 10;
@@ -1222,16 +1187,16 @@
             }
         }
 
-        function isClosedDay(dateStr, service = document.getElementById("bk-service").value) {
+        function isClosedDay(dateStr) {
             if (!dateStr) return false;
             const day = new Date(dateStr + "T12:00:00").getDay();
-            return CLOSED_DAYS.includes(day) || (day === 0 && !SUNDAY_SERVICES.includes(service));
+            return CLOSED_DAYS.includes(day);
         }
 
         document.getElementById("bk-date").addEventListener("change", function() {
             const note = document.getElementById("bk-date-note");
             if (isClosedDay(this.value)) {
-                note.innerHTML = '<i class="fas fa-exclamation-circle"></i> Sundays are for massage therapy only (10 a.m. – 8 p.m.). The clinic is closed on Mondays.';
+                note.innerHTML = '<i class="fas fa-exclamation-circle"></i> The clinic is closed on Sundays and Mondays.';
                 note.style.display = "block";
             } else {
                 note.style.display = "none";
@@ -1292,7 +1257,7 @@
                 const err2 = document.getElementById("bk-err-2");
                 if (!service) { err2.textContent = "Please select a service."; err2.style.display = "block"; return; }
                 if (!date) { err2.textContent = "Please select a date."; err2.style.display = "block"; return; }
-                if (isClosedDay(date)) { err2.textContent = "Sundays are for massage therapy only (10 a.m. – 8 p.m.). The clinic is closed on Mondays. Please choose another date."; err2.style.display = "block"; return; }
+                if (isClosedDay(date)) { err2.textContent = "The clinic is closed on Sundays and Mondays. Please choose another date."; err2.style.display = "block"; return; }
                 err2.style.display = "none";
                 bkLoadSlots();
             }
@@ -1312,7 +1277,7 @@
             const duration = SERVICE_DURATIONS[service] || 60;
             const jsDate = new Date(date + "T12:00:00");
             const dow = jsDate.getDay();
-            if (isClosedDay(date, service)) return [];
+            if (isClosedDay(date)) return [];
             const dayName = DAY_NAMES[dow];
             const isMassageSlot = service === "massage_60" || service === "massage_90";
 
@@ -1728,7 +1693,7 @@
                             <p>
                                 <strong>Hours:</strong><br>
                                 Tuesday – Saturday: 10 a.m. – 8 p.m.<br>
-                                <em style="opacity:.75">Sunday: 10 a.m. – 8 p.m. (massage therapy only)<br>Monday: Closed</em>
+                                <em style="opacity:.75">Sunday and Monday: Closed</em>
                             </p>
                         </div>
                     </div>
@@ -1884,54 +1849,6 @@
 
     <!-- JavaScript -->
     <script>
-        // Shared across French and English; a new announcement has its own key.
-        const PROMO_STORAGE_KEY = 'bienetre_sunday_massage_2026_dismissed';
-        let noticePreviousFocus;
-        let noticePreviousOverflow;
-
-        function promoShouldShow() {
-            try { return !localStorage.getItem(PROMO_STORAGE_KEY); }
-            catch (_) { return true; }
-        }
-
-        function showModal() {
-            if (!promoShouldShow()) return;
-            const modal = document.getElementById('hoursModal');
-            noticePreviousFocus = document.activeElement;
-            noticePreviousOverflow = document.body.style.overflow;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            modal.querySelector('.modal-close').focus();
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('hoursModal');
-            if (!modal.classList.contains('active')) return;
-            try { localStorage.setItem(PROMO_STORAGE_KEY, '1'); } catch (_) {}
-            modal.classList.remove('active');
-            document.body.style.overflow = noticePreviousOverflow;
-            noticePreviousFocus?.focus();
-        }
-
-        // Announcement popups are disabled.
-        document.getElementById('hoursModal').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) closeModal();
-        });
-        document.addEventListener('keydown', (e) => {
-            const modal = document.getElementById('hoursModal');
-            if (!modal.classList.contains('active')) return;
-            if (e.key === 'Escape') closeModal();
-            if (e.key === 'Tab') {
-                const controls = modal.querySelectorAll('button, a[href]');
-                const first = controls[0], last = controls[controls.length - 1];
-                if (e.shiftKey && document.activeElement === first) {
-                    e.preventDefault(); last.focus();
-                } else if (!e.shiftKey && document.activeElement === last) {
-                    e.preventDefault(); first.focus();
-                }
-            }
-        });
-
         // Header scroll state
         (function () {
             const header = document.querySelector('.site-header');
